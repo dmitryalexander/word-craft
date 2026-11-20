@@ -2,6 +2,8 @@
 
 An immersive native Windows writing and reading app. Typed words stir procedural smoke; reading brings the draft into a kinetic line. The full-text editor places editable, woven letters on a simulated cloth surface.
 
+**Controls: hold F1 in the app, or read the [complete controls sheet](CONTROLS.txt).**
+
 ## Demo
 
 [![Watch the WordCraft demo](docs/wordcraft-demo.jpg)](https://youtu.be/Bp3ybJkoUTM)
@@ -35,7 +37,7 @@ Windows 10/11 x64, .NET Framework 4.8 and a Direct3D 11 GPU with Shader Model 5 
 | Click a reading word | Edit at that word |
 | Ctrl+A | Open full-text editing and select all |
 | Alt+A | Return to smoke typing |
-| Caps Lock | Audio, colors and text-motion options |
+| Caps Lock | Graphics quality, audio, colors and text-motion options |
 | Ctrl+N | Clear the session draft |
 | Backtick / tilde | Toggle fullscreen |
 | Esc | Cancel gesture, close options, or close app |

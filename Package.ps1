@@ -9,7 +9,7 @@ foreach($name in 'WordCraft.exe','WordCraftSmoke.dll'){
 }
 Copy-Item -LiteralPath (Join-Path $root 'Bleeding-Edge/App/WordCraft.ico') -Destination (Join-Path $bundle 'Bleeding-Edge/App')
 Get-ChildItem (Join-Path $root 'Defaults') -File|Copy-Item -Destination (Join-Path $bundle 'Bleeding-Edge')
-foreach($name in 'LICENSE','README.md','RELEASE-NOTES.md','THIRD-PARTY-NOTICES.md','Open WordCraft.cmd'){
+foreach($name in 'LICENSE','CONTROLS.txt','README.md','RELEASE-NOTES.md','THIRD-PARTY-NOTICES.md','Open WordCraft.cmd'){
  Copy-Item -LiteralPath (Join-Path $root $name) -Destination $bundle
 }
 $zip=Join-Path $dist 'WordCraft-2.2.0-windows-x64.zip'

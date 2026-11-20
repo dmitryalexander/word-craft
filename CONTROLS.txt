@@ -1,0 +1,61 @@
+WORDCRAFT CONTROLS
+
+Hold F1 inside WordCraft for the quick control overlay. Close options first.
+The startup screen deliberately stays empty.
+
+WRITING AND READING
+Type                    Write into the smoke view.
+Enter / Ctrl+Enter      Start reading; while reading, return to writing.
+Shift+Enter             Insert a new line while editing.
+Ctrl+V                  Paste text at the selection and start reading.
+Tab                     Switch between writing and reading.
+Ctrl+Tab                Return to writing, or open reading paused.
+Space while reading     Pause or play.
+Ctrl+Shift+Space        Restart reading from the beginning.
+Hold Shift              Read at one third speed.
+Shift+Space             Type a normal space while writing; never replay.
+Left / Right            Move to the previous/next word while reading.
+Home / End              Navigate to the beginning/end while reading.
+Click a reading word    Return to editing at that word.
+Type / Backspace/Delete Return from reading to editing at the current word.
+
+FULL TEXT AND CLIPBOARD
+Ctrl+A                  Show the full editable text and select all.
+Alt+A                   Return to the smoke typing view.
+Ctrl+C while reading    Copy the complete original source text.
+Ctrl+C / Ctrl+X         Normal copy/cut while editing selected text.
+Ctrl+Z / Ctrl+Y         Normal native undo/redo while editing.
+Ctrl+N                  Clear the current draft. Copy it elsewhere first.
+
+MOUSE AND WINDOW
+Wheel forward/backward  Enlarge/shrink the centered window, 25%-100%.
+                        25% means one quarter of screen width AND height.
+Ctrl+wheel in reading   Adjust reading text size, independent of window size.
+Shift+wheel in reading  Step between estimated syllables.
+Ctrl+left drag up/down  Increase/decrease master volume.
+Shift+left click/drag   Seek through the text; resumes only if it was playing.
+Esc during a drag      Cancel the drag and restore its starting state.
+Backtick / tilde        Toggle fullscreen.
+
+OPTIONS
+Caps Lock               Open or close options.
+Caps Lock / Esc / Save  Save and close the options panel.
+Wheel over options      Scroll options rather than resize the window.
+Graphics quality        Low / Balanced / High / Ultra, applied and saved live.
+Audio                   Morse and noise levels, layers and playback behavior.
+Colors                  Independent typing/reading palettes and selected text.
+Text motion             Wind, turbulence, tautness, gravity, texture, weave,
+                        opacity, fraying, fiber length, level lines and mesh.
+Pause cloth             Freeze cloth motion. Wind 0 can still leave inertia.
+Reset cloth             Reset the current cloth simulation.
+
+HELP AND EXIT
+Hold F1                 Show the quick overlay; release F1 to hide it.
+Esc                     Cancel a gesture, close options, or close WordCraft.
+
+IMPORTANT
+Drafts exist only in the current session. There is no document Save/Open or
+automatic draft recovery. Copy text to another app before closing or clearing.
+Ctrl+S does not save a document. Preferences are saved separately from text.
+
+Source and updates: https://github.com/dmitryalexander/word-craft

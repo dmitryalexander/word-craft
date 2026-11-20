@@ -240,6 +240,11 @@
       "source": "WordCraft/LICENSE",
       "destination": "LICENSE",
       "sha256": "d3aac2749123484810d1a09efe8b37736929dceab9a96cd1df13929bc37fdaf5"
+    },
+    {
+      "source": "WordCraft/CONTROLS.txt",
+      "destination": "CONTROLS.txt",
+      "sha256": "8ab645afc04d0105a3527ff86dc79b8badac1359855e5fae55071f7fefab3616"
     }
   ]
 }
