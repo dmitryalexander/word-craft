@@ -1,8 +1,10 @@
 # WordCraft
 
+**Press F1 for controls.** Press F1 again or Esc to close the guide.
+
 An immersive native Windows writing and reading app. Typed words stir procedural smoke; reading brings the draft into a kinetic line. The full-text editor places editable, woven letters on a simulated cloth surface.
 
-**Controls: press F1 to toggle the keycap overlay, or read the [complete controls sheet](CONTROLS.txt).**
+See the [complete controls sheet](CONTROLS.txt) for all shortcuts.
 
 ## Demo
 
