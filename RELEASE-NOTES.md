@@ -1,6 +1,6 @@
-# WordCraft 2.1.0
+# WordCraft 2.1.1
 
-Adds a saved live Graphics quality slider under Caps Lock: Low, Balanced, High and Ultra. New downloads start on Balanced. Lower settings reduce smoke simulation/output resolution, pressure iterations and update rate.
+Fixes uppercase typing being interrupted by Shift+Space. Replay now uses Ctrl+Shift+Space; Shift+Space types a normal space. Graphics quality and other controls remain available.
 
 - Native smoke writing and kinetic text reading, with smooth mode/color transitions.
 - Editable woven text on a cloth simulation with fixed corner anchors, fraying and live material/motion controls.

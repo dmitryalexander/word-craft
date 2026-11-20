@@ -19,7 +19,7 @@ using Forms=System.Windows.Forms;
 
 [assembly:AssemblyTitle("WordCraft")]
 [assembly:AssemblyProduct("WordCraft")]
-[assembly:AssemblyVersion("2.1.0.0")]
+[assembly:AssemblyVersion("2.1.1.0")]
 
 sealed class WordCraftEditor : Window
 {
@@ -39,7 +39,7 @@ sealed class WordCraftEditor : Window
         HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,UndoLimit=200
     };
     readonly TextBlock help=new TextBlock {
-        Text="Enter  read    Shift+Enter  new line    Tab / Ctrl+Tab  typing / reading\nPaste  insert & read    Space  pause / play    Shift+Space  replay\nCaps Lock  audio balance + WordCraft colors\nCtrl+drag  master volume    Shift+drag  scrub    Hold Shift  slow\nClick a reading word  edit there    Ctrl+A  full text    Alt+A  typing    ` / ~  fullscreen\nEsc  close panel / app    Hold F1  controls",
+        Text="Enter  read    Shift+Enter  new line    Tab / Ctrl+Tab  typing / reading\nPaste  insert & read    Space  pause / play    Ctrl+Shift+Space  replay\nCaps Lock  audio balance + WordCraft colors\nCtrl+drag  master volume    Shift+drag  scrub    Hold Shift  slow\nClick a reading word  edit there    Ctrl+A  full text    Alt+A  typing    ` / ~  fullscreen\nEsc  close panel / app    Hold F1  controls",
         Foreground=Brushes.LightSteelBlue,Background=new SolidColorBrush(Color.FromArgb(235,17,23,35)),
         Padding=new Thickness(20),HorizontalAlignment=HorizontalAlignment.Center,
         VerticalAlignment=VerticalAlignment.Bottom,Margin=new Thickness(20),Visibility=Visibility.Collapsed,
@@ -267,7 +267,7 @@ sealed class WordCraftEditor : Window
     }
     internal bool HandleReplayShortcut(Key key,ModifierKeys modifiers,bool repeat)
     {
-        if(key!=Key.Space||modifiers!=ModifierKeys.Shift)return false;
+        if(key!=Key.Space||modifiers!=(ModifierKeys.Control|ModifierKeys.Shift))return false;
         if(!repeat&&!String.IsNullOrWhiteSpace(editor.Text))
         {
             if(volumeDrag||scrubbing)EndGesture(true,false);
@@ -296,7 +296,7 @@ sealed class WordCraftEditor : Window
         FlushReadingSmoke();
         readingView.UpdateFrame();
         ObserveReadingMotion();
-        // Completion returns to the draft. Tab or Shift+Space can reopen the same text.
+        // Completion returns to the draft. Tab or Ctrl+Shift+Space can reopen the same text.
         if(TryFinishReading())return;
         else if(!scrubbing&&!flow.Reader.Animating&&!scene.ReplySmokePending)timer.Stop();
     }
@@ -374,7 +374,7 @@ sealed class WordCraftEditor : Window
         if(reading&&(e.Key==Key.Z||e.Key==Key.X)&&modifiers==ModifierKeys.Control)ShowEditor();
         if(reading&&(e.Key==Key.Left||e.Key==Key.Right||e.Key==Key.Home||e.Key==Key.End))
         {finishWhenRead=false;e.Handled=flow.HandleKey((Forms.Keys)KeyInterop.VirtualKeyFromKey(e.Key));timer.Start();}
-        if(!reading&&e.Key==Key.Space&&modifiers==ModifierKeys.None&&!e.Handled)
+        if(!reading&&e.Key==Key.Space&&(modifiers==ModifierKeys.None||modifiers==ModifierKeys.Shift)&&!e.Handled)
         {
             scene.CommitWord();
         }
