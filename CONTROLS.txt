@@ -1,6 +1,6 @@
 WORDCRAFT CONTROLS
 
-Hold F1 inside WordCraft for the quick control overlay. Close options first.
+Hold F1 inside WordCraft for the fading keyboard-keycap guide.
 The startup screen deliberately stays empty.
 
 WRITING AND READING
@@ -28,9 +28,9 @@ Ctrl+Z / Ctrl+Y         Normal native undo/redo while editing.
 Ctrl+N                  Clear the current draft. Copy it elsewhere first.
 
 MOUSE AND WINDOW
-Wheel forward/backward  Enlarge/shrink the centered window, 25%-100%.
-                        25% means one quarter of screen width AND height.
-Ctrl+wheel in reading   Adjust reading text size, independent of window size.
+Wheel forward/backward  Scale the centered simulation, 25%-100%, with black around it.
+                        The window stays fixed; help and options stay full size.
+Ctrl+wheel in reading   Adjust reading text size, independent of simulation presentation scale.
 Shift+wheel in reading  Step between estimated syllables.
 Ctrl+left drag up/down  Increase/decrease master volume.
 Shift+left click/drag   Seek through the text; resumes only if it was playing.
@@ -50,8 +50,8 @@ Pause cloth             Freeze cloth motion. Wind 0 can still leave inertia.
 Reset cloth             Reset the current cloth simulation.
 
 HELP AND EXIT
-Hold F1                 Show the quick overlay; release F1 to hide it.
-Esc                     Cancel a gesture, close options, or close WordCraft.
+Hold F1                 Show the keycap guide, including over options; release to hide.
+Esc                     Close the guide, cancel a gesture, close options, or exit.
 
 IMPORTANT
 Drafts exist only in the current session. There is no document Save/Open or

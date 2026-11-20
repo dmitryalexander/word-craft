@@ -1,6 +1,6 @@
-# WordCraft 2.2.0
+# WordCraft 2.3.0
 
-Adds mouse-wheel window zoom: forward enlarges, backward shrinks, bounded to 25–100% of the current monitor width and height, centered and borderless. The options panel keeps normal scrolling; modified wheel controls remain separate. Ctrl+Shift+Space replay and Shift+Space typing remain.
+Adds a redesigned hold-F1 controls overlay with rounded keyboard keycaps, spaced shortcut rows, a translucent dark backdrop and finite fades. Options remain usable after release; small windows can scroll the guide. Also corrects mouse-wheel zoom: scales only the centered simulation presentation from 25–100%, with an opaque black surround. The native window stays fixed, text layout stays unchanged, and help/options remain full size. The options panel keeps normal scrolling; modified wheel controls remain separate. Ctrl+Shift+Space replay and Shift+Space typing remain.
 
 - Native smoke writing and kinetic text reading, with smooth mode/color transitions.
 - Editable woven text on a cloth simulation with fixed corner anchors, fraying and live material/motion controls.

@@ -12,7 +12,7 @@ $references=foreach($name in 'PresentationCore','PresentationFramework','Windows
  if(!$reference){throw "Missing framework reference: $name"}
  "/reference:$($reference.FullName)"
 }
-$sources=@('WordCraftEditor.cs','WordCraftWindowZoom.cs','WordCraftQuality.cs','WordCraftWindSurface.cs','WordCraftClothSimulation.cs','WordCraftCanvasMaterial.cs','WordCraftCharacterCaret.cs','WordCraftPhaseColors.cs','WordCraftSettings.cs','WordCraftAudio.cs','WordFlowView.cs','FlowMarkdown.cs','WordViewEffects.cs','ViewTuning.cs','SmokeLoadingWorkshop.cs')|ForEach-Object{Join-Path $app $_}
+$sources=@('WordCraftEditor.cs','WordCraftControlsOverlay.cs','WordCraftSimulationZoom.cs','WordCraftQuality.cs','WordCraftWindSurface.cs','WordCraftClothSimulation.cs','WordCraftCanvasMaterial.cs','WordCraftCharacterCaret.cs','WordCraftPhaseColors.cs','WordCraftSettings.cs','WordCraftAudio.cs','WordFlowView.cs','FlowMarkdown.cs','WordViewEffects.cs','ViewTuning.cs','SmokeLoadingWorkshop.cs')|ForEach-Object{Join-Path $app $_}
 $sources+=@('KineticReader.cs','FlowTuningPanel.cs','ReaderRaster.cs','RuledReader.cs','ReaderNarration.cs','NarrationEffects.cs')|ForEach-Object{Join-Path $page $_}
 $sources+=@('JapaneseRomaji.cs','FlowSmokeOverlay.cs','ChatTypography.cs','ChatColorPanel.cs')|ForEach-Object{Join-Path $chat $_}
 $stage=New-Item -ItemType Directory -Path (Join-Path ([IO.Path]::GetTempPath()) ('WordCraft-reader-'+[guid]::NewGuid()))

@@ -19,7 +19,7 @@ using Forms=System.Windows.Forms;
 
 [assembly:AssemblyTitle("WordCraft")]
 [assembly:AssemblyProduct("WordCraft")]
-[assembly:AssemblyVersion("2.2.0.0")]
+[assembly:AssemblyVersion("2.3.0.0")]
 
 sealed partial class WordCraftEditor : Window
 {
@@ -38,13 +38,7 @@ sealed partial class WordCraftEditor : Window
         Padding=new Thickness(50,40,50,40),VerticalScrollBarVisibility=ScrollBarVisibility.Auto,
         HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,UndoLimit=200
     };
-    readonly TextBlock help=new TextBlock {
-        Text="Enter  read    Shift+Enter  new line    Tab / Ctrl+Tab  typing / reading\nPaste  insert & read    Space  pause / play    Ctrl+Shift+Space  replay\nCaps Lock  audio balance + WordCraft colors\nCtrl+drag  master volume    Shift+drag  scrub    Hold Shift  slow\nClick a reading word  edit there    Ctrl+A  full text    Alt+A  typing    ` / ~  fullscreen\nWheel  window size 25–100%\nEsc  close panel / app    Hold F1  controls",
-        Foreground=Brushes.LightSteelBlue,Background=new SolidColorBrush(Color.FromArgb(235,17,23,35)),
-        Padding=new Thickness(20),HorizontalAlignment=HorizontalAlignment.Center,
-        VerticalAlignment=VerticalAlignment.Bottom,Margin=new Thickness(20),Visibility=Visibility.Collapsed,
-        IsHitTestVisible=false,FontSize=15
-    };
+    readonly WordCraftControlsOverlay help=new WordCraftControlsOverlay();
     readonly TextBlock feedback=new TextBlock {
         Foreground=Brushes.White,Background=new SolidColorBrush(Color.FromArgb(220,17,23,35)),
         Padding=new Thickness(9),Margin=new Thickness(14),HorizontalAlignment=HorizontalAlignment.Right,
@@ -95,13 +89,14 @@ sealed partial class WordCraftEditor : Window
         using(var icon=Assembly.GetExecutingAssembly().GetManifestResourceStream("WordCraft.ico"))
             Icon=BitmapFrame.Create(icon,BitmapCreateOptions.None,BitmapCacheOption.OnLoad);
         editor.Opacity=0;editor.IsHitTestVisible=false;
-        canvas.Children.Add(scene);canvas.Children.Add(windSurface);canvas.Children.Add(marker);canvas.Children.Add(feedback);canvas.Children.Add(help);
-        Content=canvas;
+        canvas.ClipToBounds=true;
+        canvas.Children.Add(scene);canvas.Children.Add(windSurface);canvas.Children.Add(marker);
+        InitializeSimulationZoom();
         Loaded+=(s,e)=>{ToggleFullscreen();editor.Focus();};
         timer.Tick+=(s,e)=>Tick();
         editor.PreviewTextInput+=(s,e)=>
         {
-            if(settings!=null){e.Handled=true;return;}
+            if(settings!=null||help.IsOpen){e.Handled=true;return;}
             if(String.IsNullOrEmpty(e.Text))return;
             if(reading)ShowEditor();
             sound.PlayTyped(e.Text,clock.Elapsed.TotalSeconds);
@@ -122,7 +117,7 @@ sealed partial class WordCraftEditor : Window
             string text=e.DataObject.GetData(DataFormats.UnicodeText) as string ?? e.DataObject.GetData(DataFormats.Text) as string;
             e.CancelCommand();if(text!=null)PasteText(text);
         });
-        Deactivated+=(s,e)=>{EndGesture(true,false);help.Visibility=Visibility.Collapsed;HideFeedback();};
+        Deactivated+=(s,e)=>{EndGesture(true,false);help.Hide(true);HideFeedback();};
         canvas.LostMouseCapture+=(s,e)=>{if((volumeDrag||scrubbing)&&Mouse.Captured!=canvas)EndGesture(true,false);};
         MouseLeave+=(s,e)=>{if(!volumeDrag&&!scrubbing)HideFeedback();};
     }
@@ -155,14 +150,14 @@ sealed partial class WordCraftEditor : Window
     internal void ToggleSettings()
     {
         if(settings!=null){CloseSettings();return;}
-        EndGesture(true,false);help.Visibility=Visibility.Collapsed;
+        EndGesture(true,false);help.Hide(true);
         settings=new WordCraftSettings(scene,sound,characterCaret,windSurface,quality,()=>volumeDirty=true,CloseSettings);
-        Panel.SetZIndex(settings,100);canvas.Children.Add(settings);canvas.UpdateLayout();settings.FocusEditor();
+        Panel.SetZIndex(settings,100);windowRoot.Children.Add(settings);windowRoot.UpdateLayout();settings.FocusEditor();
     }
     internal void CloseSettings()
     {
         if(settings==null||!settings.Save()||!SaveVolume())return;
-        canvas.Children.Remove(settings);settings=null;scene.PreviewColors(null);ApplyReaderColor();editor.Focus();
+        windowRoot.Children.Remove(settings);settings=null;scene.PreviewColors(null);ApplyReaderColor();editor.Focus();
     }
     void UpdateDraftWord()
     {
@@ -337,6 +332,8 @@ sealed partial class WordCraftEditor : Window
         base.OnPreviewKeyDown(e);
         var modifiers=Keyboard.Modifiers;
         var key=e.Key==Key.System?e.SystemKey:e.Key==Key.ImeProcessed?e.ImeProcessedKey:e.Key;
+        if(key==Key.F1){e.Handled=true;if(!e.IsRepeat){EndGesture(true,false);HideFeedback();help.Show();}return;}
+        if(help.IsOpen){help.HandleKey(key);e.Handled=true;return;}
         if(HandleReplayShortcut(key,modifiers,e.IsRepeat)){e.Handled=true;return;}
         if(e.Key==Key.Capital){e.Handled=true;if(!e.IsRepeat)ToggleSettings();return;}
         if(settings!=null)
@@ -354,7 +351,7 @@ sealed partial class WordCraftEditor : Window
             else if(!e.IsRepeat){if(reading)ShowEditor();else ShowReader(true,false);}
             return;
         }
-        if(e.Key==Key.F1){help.Visibility=Visibility.Visible;e.Handled=true;return;}
+
         if(e.Key==Key.V&&modifiers==ModifierKeys.Control)
         {e.Handled=true;try{if(Clipboard.ContainsText())PasteText(Clipboard.GetText());}catch(ExternalException){}return;}
         if(e.Key==Key.N&&modifiers==ModifierKeys.Control)
@@ -382,7 +379,7 @@ sealed partial class WordCraftEditor : Window
     protected override void OnPreviewKeyUp(KeyEventArgs e)
     {
         base.OnPreviewKeyUp(e);
-        if(e.Key==Key.F1)help.Visibility=Visibility.Collapsed;
+        if(e.Key==Key.F1){help.Hide();e.Handled=true;}
         if((volumeDrag&&(e.Key==Key.LeftCtrl||e.Key==Key.RightCtrl))||
             (scrubbing&&(e.Key==Key.LeftShift||e.Key==Key.RightShift)))EndGesture(false,true);
         if(e.Key==Key.LeftShift||e.Key==Key.RightShift)HideFeedback();
@@ -427,21 +424,22 @@ sealed partial class WordCraftEditor : Window
     protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
     {
         base.OnPreviewMouseLeftButtonDown(e);
-        if(settings!=null)return;
+        if(settings!=null||help.IsOpen)return;
         if(volumeDrag||scrubbing)return;
         var p=e.GetPosition(canvas);
-        if(Keyboard.Modifiers==ModifierKeys.Control){volumeDrag=true;startY=p.Y;startVolume=sound.Volume;}
+        if(Keyboard.Modifiers==ModifierKeys.Control){volumeDrag=true;startY=e.GetPosition(windowRoot).Y;startVolume=sound.Volume;}
         else if(Keyboard.Modifiers==ModifierKeys.Shift&&!String.IsNullOrWhiteSpace(editor.Text)){BeginScrub();SeekScrub(p.X);}
         else {if(!editor.IsHitTestVisible)editor.Focus();return;}
         Mouse.Capture(canvas,CaptureMode.SubTree);e.Handled=true;
     }
     protected override void OnPreviewMouseMove(MouseEventArgs e)
     {
-        base.OnPreviewMouseMove(e);var p=e.GetPosition(canvas);
+        base.OnPreviewMouseMove(e);if(help.IsOpen){HideFeedback();return;}var p=e.GetPosition(canvas);
         if(volumeDrag)
         {
-            if(Math.Abs(startY-p.Y)<3)return;
-            sound.Volume=Math.Max(0,Math.Min(1,startVolume+(startY-p.Y)/200));volumeDirty=true;
+            double pointerY=e.GetPosition(windowRoot).Y;
+            if(Math.Abs(startY-pointerY)<3)return;
+            sound.Volume=Math.Max(0,Math.Min(1,startVolume+(startY-pointerY)/200));volumeDirty=true;
             ShowFeedback(-1,"Volume "+Math.Round(sound.Volume*100)+"%");e.Handled=true;
         }
         else if(scrubbing){pendingScrub=p.X;timer.Start();e.Handled=true;}
@@ -495,5 +493,5 @@ sealed partial class WordCraftEditor : Window
         catch(UnauthorizedAccessException error){ShowFeedback(-1,"Audio settings: "+error.Message);return false;}
     }
     protected override void OnClosed(EventArgs e)
-    {closed=true;EndGesture(true,false);if(settings!=null)settings.Save();characterCaret.Save();characterCaret.Dispose();windSurface.Save();windSurface.Dispose();quality.Save();SaveVolume();timer.Stop();sound.Dispose();if(flow!=null)flow.Dispose();scene.Dispose();base.OnClosed(e);}
+    {closed=true;help.Hide(true);EndGesture(true,false);if(settings!=null)settings.Save();characterCaret.Save();characterCaret.Dispose();windSurface.Save();windSurface.Dispose();quality.Save();SaveVolume();timer.Stop();sound.Dispose();if(flow!=null)flow.Dispose();scene.Dispose();base.OnClosed(e);}
 }
