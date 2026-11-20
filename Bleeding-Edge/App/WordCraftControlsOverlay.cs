@@ -23,11 +23,11 @@ sealed class WordCraftControlsOverlay : Grid
     {
         Visibility=Visibility.Collapsed;Opacity=0;IsHitTestVisible=false;Focusable=false;
         Background=new SolidColorBrush(Color.FromArgb(215,5,9,15));
-        scroll.MaxWidth=1080;scroll.Margin=new Thickness(32,22,32,22);scroll.HorizontalAlignment=HorizontalAlignment.Center;
+        scroll.MaxWidth=1080;scroll.Margin=new Thickness(32);scroll.HorizontalAlignment=HorizontalAlignment.Center;scroll.VerticalAlignment=VerticalAlignment.Center;
         Children.Add(scroll);var body=new StackPanel();scroll.Content=body;
-        var heading=new StackPanel {Margin=new Thickness(12,4,12,24)};body.Children.Add(heading);
+        var heading=new StackPanel {Margin=new Thickness(12,0,12,24)};body.Children.Add(heading);
         heading.Children.Add(new TextBlock {Text="Controls",FontFamily=new FontFamily("Segoe UI"),FontSize=28,FontWeight=FontWeights.SemiBold,Foreground=ink});
-        heading.Children.Add(new TextBlock {Text="Hold F1 to keep this guide open.  Release to return.",FontSize=13,Foreground=muted,Margin=new Thickness(0,7,0,0)});
+        heading.Children.Add(new TextBlock {Text="Press F1 to toggle this guide.  Esc also closes it.",FontSize=13,Foreground=muted,Margin=new Thickness(0,7,0,0)});
         body.Children.Add(groups);
         Section("WRITE",new[]{
             new[]{"Enter","Read / return to writing"},new[]{"Shift+Enter","New line"},
@@ -38,14 +38,14 @@ sealed class WordCraftControlsOverlay : Grid
             new[]{"Shift","Slow reading · hold"},new[]{"← / →","Previous / next word"},
             new[]{"Home / End","Beginning / end"},new[]{"@Click a word","Edit at that word"}});
         Section("MOVE & LOOK",new[]{
-            new[]{"@Wheel ↑↓","Simulation size · 25–100%"},new[]{"Ctrl+@wheel","Reading text size"},
+            new[]{"@Wheel ↑↓","Simulation size · 25–100%"},new[]{"Ctrl+@wheel","Mesh text size"},
             new[]{"Shift+@drag","Scrub through the text"},new[]{"Ctrl+@drag ↑↓","Master volume"},
             new[]{"`","Toggle fullscreen"},new[]{"Esc","Cancel gesture / close"}});
         Section("OPTIONS & EDITING",new[]{
             new[]{"Caps Lock","Quality, sound, colors & cloth"},new[]{"Ctrl+C","Copy · whole text in reading"},
             new[]{"Ctrl+X","Cut selected text"},new[]{"Ctrl+Z / Y","Undo / redo in editing"},
-            new[]{"F1","Show this guide · hold"},new[]{"Esc","Close options / exit app"}});
-        body.Children.Add(new TextBlock {Text="Your draft is session-only. Copy it elsewhere before closing.  ·  Scroll for more controls on smaller screens.",TextWrapping=TextWrapping.Wrap,Foreground=muted,FontSize=12,Margin=new Thickness(12,0,12,8)});
+            new[]{"F1","Toggle this guide"},new[]{"Esc","Close options / exit app"}});
+        body.Children.Add(new TextBlock {Text="Your draft is session-only. Copy it elsewhere before closing.  ·  Scroll for more controls on smaller screens.",TextWrapping=TextWrapping.Wrap,Foreground=muted,FontSize=12,Margin=new Thickness(12,0,12,0)});
         SizeChanged+=(s,e)=>AdaptLayout();
     }
     void Section(string title,string[][] entries)
@@ -53,16 +53,16 @@ sealed class WordCraftControlsOverlay : Grid
         var section=new StackPanel {Margin=new Thickness(12,0,12,20)};sections.Add(section);groups.Children.Add(section);
         section.Children.Add(new TextBlock {Text=title,Foreground=muted,FontSize=11,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,0,0,12)});
         foreach(var entry in entries){
-            var row=new Grid {Margin=new Thickness(0,0,0,8)};row.ColumnDefinitions.Add(new ColumnDefinition {Width=new GridLength(220)});row.ColumnDefinitions.Add(new ColumnDefinition());
+            var row=new Grid {Margin=new Thickness(0,0,0,8)};row.ColumnDefinitions.Add(new ColumnDefinition {Width=GridLength.Auto});row.ColumnDefinitions.Add(new ColumnDefinition());
             row.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});row.RowDefinitions.Add(new RowDefinition {Height=GridLength.Auto});
-            var keys=new StackPanel {Orientation=Orientation.Horizontal,VerticalAlignment=VerticalAlignment.Center};
+            var keys=new StackPanel {Orientation=Orientation.Horizontal,HorizontalAlignment=HorizontalAlignment.Left,VerticalAlignment=VerticalAlignment.Center};
             foreach(string raw in Regex.Split(entry[0],"([+/])")){
                 string key=raw.Trim();if(key.Length==0)continue;
                 if(key=="+"||key=="/")keys.Children.Add(new TextBlock {Text=key,Foreground=muted,VerticalAlignment=VerticalAlignment.Center,Margin=new Thickness(3,0,3,0),FontSize=12});
                 else if(key.StartsWith("@"))keys.Children.Add(new TextBlock {Text=key.Substring(1),Foreground=ink,FontSize=13,VerticalAlignment=VerticalAlignment.Center,Margin=new Thickness(0,4,3,4)});
                 else keys.Children.Add(Keycap(key));
             }
-            var label=new TextBlock {Text=entry[1],Foreground=ink,FontSize=13,VerticalAlignment=VerticalAlignment.Center,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(12,0,0,0)};
+            var label=new TextBlock {Text=entry[1],TextAlignment=TextAlignment.Left,Foreground=ink,FontSize=13,VerticalAlignment=VerticalAlignment.Center,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(12,0,0,0)};
             Grid.SetColumn(label,1);row.Children.Add(keys);row.Children.Add(label);rows.Add(row);section.Children.Add(row);
         }
     }
@@ -76,11 +76,12 @@ sealed class WordCraftControlsOverlay : Grid
     }
     void AdaptLayout()
     {
-        double width=Math.Max(180,Math.Min(1040,ActualWidth-96));int columns=width>=1024?2:1;
+        double width=Math.Max(180,Math.Min(1080,ActualWidth-64));int columns=width>=1024?2:1;
+        scroll.Width=width;scroll.MaxHeight=Math.Max(1,ActualHeight-64);groups.Width=width;
         double sectionWidth=width/columns-24;foreach(var section in sections)section.Width=sectionWidth;
         bool stacked=sectionWidth<420;
         foreach(var row in rows){
-            row.ColumnDefinitions[0].Width=stacked?new GridLength(1,GridUnitType.Star):new GridLength(220);
+            row.ColumnDefinitions[0].Width=stacked?new GridLength(1,GridUnitType.Star):GridLength.Auto;
             var label=(TextBlock)row.Children[1];Grid.SetRow(label,stacked?1:0);Grid.SetColumn(label,stacked?0:1);Grid.SetColumnSpan(label,stacked?2:1);label.Margin=stacked?new Thickness(0,6,0,2):new Thickness(12,0,0,0);
         }
     }

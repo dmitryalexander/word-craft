@@ -1,6 +1,6 @@
-# WordCraft 2.3.0
+# WordCraft 2.3.1
 
-Adds a redesigned hold-F1 controls overlay with rounded keyboard keycaps, spaced shortcut rows, a translucent dark backdrop and finite fades. Options remain usable after release; small windows can scroll the guide. Also corrects mouse-wheel zoom: scales only the centered simulation presentation from 25–100%, with an opaque black surround. The native window stays fixed, text layout stays unchanged, and help/options remain full size. The options panel keeps normal scrolling; modified wheel controls remain separate. Ctrl+Shift+Space replay and Shift+Space typing remain.
+Ctrl+mouse wheel now changes the actual native font size on the editable cloth mesh (Ctrl+A), with smooth fractional wheel steps and bounds of 8–160 DIPs. Source text, selection and undo are preserved; cached textile fringes refresh after reflow. Reading/smoke text sizes stay unchanged. Inset simulation presentation now has 20-DIP rounded corners over its black surround; at 100% it fills the window edge to edge. Plain wheel remains simulation-only zoom from 25–100%, and help/options remain full size. The centered, left-aligned F1 keycap guide toggles on each press. Dense cloth fibers are batched into at most128 paths to reduce text-material rebuild stalls. Ctrl+Shift+Space replay and Shift+Space typing remain.
 
 - Native smoke writing and kinetic text reading, with smooth mode/color transitions.
 - Editable woven text on a cloth simulation with fixed corner anchors, fraying and live material/motion controls.

@@ -1,6 +1,6 @@
 WORDCRAFT CONTROLS
 
-Hold F1 inside WordCraft for the fading keyboard-keycap guide.
+Press F1 inside WordCraft to toggle the fading keyboard-keycap guide.
 The startup screen deliberately stays empty.
 
 WRITING AND READING
@@ -28,9 +28,10 @@ Ctrl+Z / Ctrl+Y         Normal native undo/redo while editing.
 Ctrl+N                  Clear the current draft. Copy it elsewhere first.
 
 MOUSE AND WINDOW
-Wheel forward/backward  Scale the centered simulation, 25%-100%, with black around it.
+Wheel forward/backward  Scale the centered simulation, 25%-100%, with black around rounded corners.
                         The window stays fixed; help and options stay full size.
-Ctrl+wheel in reading   Adjust reading text size, independent of simulation presentation scale.
+Ctrl+wheel on full text Enlarge/shrink only the font on the cloth mesh (Ctrl+A to show).
+                        Reading and smoke text sizes remain unchanged.
 Shift+wheel in reading  Step between estimated syllables.
 Ctrl+left drag up/down  Increase/decrease master volume.
 Shift+left click/drag   Seek through the text; resumes only if it was playing.
@@ -40,7 +41,7 @@ Backtick / tilde        Toggle fullscreen.
 OPTIONS
 Caps Lock               Open or close options.
 Caps Lock / Esc / Save  Save and close the options panel.
-Wheel over options      Scroll options rather than resize the window.
+Wheel over options      Scroll options.
 Graphics quality        Low / Balanced / High / Ultra, applied and saved live.
 Audio                   Morse and noise levels, layers and playback behavior.
 Colors                  Independent typing/reading palettes and selected text.
@@ -50,7 +51,7 @@ Pause cloth             Freeze cloth motion. Wind 0 can still leave inertia.
 Reset cloth             Reset the current cloth simulation.
 
 HELP AND EXIT
-Hold F1                 Show the keycap guide, including over options; release to hide.
+F1                      Toggle the keycap guide, including over options.
 Esc                     Close the guide, cancel a gesture, close options, or exit.
 
 IMPORTANT

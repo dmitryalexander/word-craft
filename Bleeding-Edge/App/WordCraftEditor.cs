@@ -19,7 +19,7 @@ using Forms=System.Windows.Forms;
 
 [assembly:AssemblyTitle("WordCraft")]
 [assembly:AssemblyProduct("WordCraft")]
-[assembly:AssemblyVersion("2.3.0.0")]
+[assembly:AssemblyVersion("2.3.1.0")]
 
 sealed partial class WordCraftEditor : Window
 {
@@ -332,7 +332,7 @@ sealed partial class WordCraftEditor : Window
         base.OnPreviewKeyDown(e);
         var modifiers=Keyboard.Modifiers;
         var key=e.Key==Key.System?e.SystemKey:e.Key==Key.ImeProcessed?e.ImeProcessedKey:e.Key;
-        if(key==Key.F1){e.Handled=true;if(!e.IsRepeat){EndGesture(true,false);HideFeedback();help.Show();}return;}
+        if(key==Key.F1){e.Handled=true;if(!e.IsRepeat){if(help.IsOpen)help.Hide();else{EndGesture(true,false);HideFeedback();help.Show();}}return;}
         if(help.IsOpen){help.HandleKey(key);e.Handled=true;return;}
         if(HandleReplayShortcut(key,modifiers,e.IsRepeat)){e.Handled=true;return;}
         if(e.Key==Key.Capital){e.Handled=true;if(!e.IsRepeat)ToggleSettings();return;}
@@ -379,7 +379,7 @@ sealed partial class WordCraftEditor : Window
     protected override void OnPreviewKeyUp(KeyEventArgs e)
     {
         base.OnPreviewKeyUp(e);
-        if(e.Key==Key.F1){help.Hide();e.Handled=true;}
+        if(e.Key==Key.F1)e.Handled=true;
         if((volumeDrag&&(e.Key==Key.LeftCtrl||e.Key==Key.RightCtrl))||
             (scrubbing&&(e.Key==Key.LeftShift||e.Key==Key.RightShift)))EndGesture(false,true);
         if(e.Key==Key.LeftShift||e.Key==Key.RightShift)HideFeedback();

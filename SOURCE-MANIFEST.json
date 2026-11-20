@@ -1,5 +1,5 @@
 {
-  "version": "2.3.0",
+  "version": "2.3.1",
   "files": [
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftQuality.cs",
@@ -9,17 +9,17 @@
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftEditor.cs",
       "destination": "Bleeding-Edge/App/WordCraftEditor.cs",
-      "sha256": "c57f0609127595d66a2d4c29ef6566967b70437be69cf812a34109fa4b8d65bf"
+      "sha256": "ac574dad52d7e3b66046e211fc168754f63873d97c08e32d323e5f7fa009e175"
     },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftControlsOverlay.cs",
       "destination": "Bleeding-Edge/App/WordCraftControlsOverlay.cs",
-      "sha256": "731f1b17184b2de3222b5b7272251fad69a09f88e45bf763398364119250eb14"
+      "sha256": "3d7c39930adb3cc31b4170ee2ea702f2ff8c30a2943c51709ced1ac7d1010027"
     },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftSimulationZoom.cs",
       "destination": "Bleeding-Edge/App/WordCraftSimulationZoom.cs",
-      "sha256": "d8c0bd2ab3018530c671b6e97f7922c70f5fa018ca533b24377094b265f1873c"
+      "sha256": "fc8191e92e2196c31bc483835a53516fcffd2b7edda00c33e9d6fbcb6307f02a"
     },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftWindSurface.cs",
@@ -34,7 +34,7 @@
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftCanvasMaterial.cs",
       "destination": "Bleeding-Edge/App/WordCraftCanvasMaterial.cs",
-      "sha256": "31b70c5ffcff44c41a78c0765957f10bd833b7c235056b29e06eb9ef001496fd"
+      "sha256": "702d63b56dd86acd42976a54a3c3ccac51a1ec352cf1712aa60480c48b36139b"
     },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftCharacterCaret.cs",
@@ -249,7 +249,7 @@
     {
       "source": "WordCraft/CONTROLS.txt",
       "destination": "CONTROLS.txt",
-      "sha256": "6cce788078062c0837f8b5f6d3b007f1fe936194f1d37fb8ba25658ce8dd9eed"
+      "sha256": "6c55f786dc03e805d2796162f149fad9c6e55bf7c8d6e7be90ddfcbc9011d49c"
     }
   ]
 }

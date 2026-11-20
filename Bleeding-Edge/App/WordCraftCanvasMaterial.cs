@@ -22,6 +22,7 @@ sealed class WordCraftCanvasMaterial : Grid,IDisposable
     internal int FringeRevision {get;private set;}
     internal int MaskRevision {get;private set;}
     internal int ThreadCount {get;private set;}
+    internal int FringeDrawCount {get;private set;}
     internal double TextureStrength {get{return strength;}set{strength=value;RefreshMask();}}
     internal double WeaveSize {get{return weave;}set{weave=value;RefreshMask();QueueFringe();}}
     internal double TextOpacity {get{return opacity;}set{opacity=value;inkLayer.Opacity=value;}}
@@ -42,6 +43,7 @@ sealed class WordCraftCanvasMaterial : Grid,IDisposable
     void LayoutChanged(object sender,SizeChangedEventArgs e){QueueFringe();}
     void Scrolled(object sender,ScrollChangedEventArgs e){QueueFringe();}
     internal void SetActive(bool value){active=value;if(value)QueueFringe();else debounce.Stop();}
+    internal void InvalidateTextLayout(){fringe.Source=null;QueueFringe();}
     void QueueFringe(){fringeDirty=true;if(active){debounce.Stop();debounce.Start();}}
     static double Hash(int x,int y)
     {unchecked{int n=(x+113)*374761393^(y+59)*668265263;n=(n^(int)((uint)n>>13))*1274126177;return (uint)(n^(int)((uint)n>>16))/4294967295.0;}}
@@ -70,7 +72,7 @@ sealed class WordCraftCanvasMaterial : Grid,IDisposable
     internal void UpdateNow()
     {
         if(!active||!fringeDirty||editor.ActualWidth<1||editor.ActualHeight<1)return;
-        if(fraying<=0){fringe.Source=null;ThreadCount=0;fringeDirty=false;FringeRevision++;return;}
+        if(fraying<=0){fringe.Source=null;ThreadCount=0;FringeDrawCount=0;fringeDirty=false;FringeRevision++;return;}
         double width=editor.ActualWidth,height=editor.ActualHeight,scale=Math.Min(1,Math.Min(1920/width,1200/height));int w=Math.Max(1,(int)Math.Ceiling(width*scale)),h=Math.Max(1,(int)Math.Ceiling(height*scale));
         var snapshot=new RenderTargetBitmap(w,h,96,96,PixelFormats.Pbgra32);
         var capture=new DrawingVisual();Brush old=editor.OpacityMask;
@@ -81,14 +83,18 @@ sealed class WordCraftCanvasMaterial : Grid,IDisposable
         }finally{editor.OpacityMask=old;}
         var source=new byte[w*h*4];snapshot.CopyPixels(source,w*4,0);
         Func<int,int,byte> alpha=(x,y)=>x<0||y<0||x>=w||y>=h?(byte)0:source[(y*w+x)*4+3];
-        var drawing=new DrawingVisual();int count=0;double pitch=weave*scale,reach=length*scale;
+        var drawing=new DrawingVisual();int count=0,drawCount=0;double pitch=weave*scale,reach=length*scale;
+        // Batch disconnected fibers with near-identical ink/stroke into a small
+        // set of paths. Dense text must not create thousands of WPF draw objects.
+        var paths=new StreamGeometry[128];var contexts=new StreamGeometryContext[128];
         using(var dc=drawing.RenderOpen()){
             Action<int,int,int,int> strand=(x,y,dx,dy)=>{
                 if(Hash(x+dx*19,y+dy*23)>fraying)return;
                 double end=reach*(.3+.7*Hash(x+71,y+13)),bend=(Hash(x+11,y+91)-.5)*scale*1.5;
-                var brush=new SolidColorBrush(Color.FromArgb((byte)(128+127*Hash(x+2,y+3)),224,221,212));brush.Freeze();
-                var pen=new Pen(brush,scale*(.35+.45*Hash(x+4,y+8))) {StartLineCap=PenLineCap.Round,EndLineCap=PenLineCap.Round};pen.Freeze();
-                var path=new StreamGeometry();using(var g=path.Open()){g.BeginFigure(new Point(x-dx,y-dy),false,false);g.QuadraticBezierTo(new Point(x+dx*end*.55-dy*bend,y+dy*end*.55+dx*bend),new Point(x+dx*end-dy*bend*.3,y+dy*end+dx*bend*.3),true,false);}path.Freeze();dc.DrawGeometry(null,pen,path);count++;
+                int shade=(int)Math.Round(Hash(x+2,y+3)*15),stroke=(int)Math.Round(Hash(x+4,y+8)*7),bucket=shade*8+stroke;
+                if(paths[bucket]==null){paths[bucket]=new StreamGeometry();contexts[bucket]=paths[bucket].Open();}
+                var g=contexts[bucket];g.BeginFigure(new Point(x-dx,y-dy),false,false);
+                g.QuadraticBezierTo(new Point(x+dx*end*.55-dy*bend,y+dy*end*.55+dx*bend),new Point(x+dx*end-dy*bend*.3,y+dy*end+dx*bend*.3),true,false);count++;
             };
             for(int y=1;y<h-1;y+=2)for(int x=1;x<w-24*scale;x+=2){
                 if(alpha(x,y)<100)continue;
@@ -96,7 +102,14 @@ sealed class WordCraftCanvasMaterial : Grid,IDisposable
                 if(horizontal){if(alpha(x+2,y)<32)strand(x,y,1,0);if(alpha(x-2,y)<32)strand(x,y,-1,0);}
                 if(vertical){if(alpha(x,y+2)<32)strand(x,y,0,1);if(alpha(x,y-2)<32)strand(x,y,0,-1);}
             }
+            for(int bucket=0;bucket<paths.Length;bucket++)if(paths[bucket]!=null){
+                contexts[bucket].Close();paths[bucket].Freeze();
+                var brush=new SolidColorBrush(Color.FromArgb((byte)Math.Round(128+127*(bucket/8)/15.0),224,221,212));brush.Freeze();
+                var pen=new Pen(brush,scale*(.35+.45*(bucket%8)/7.0)) {StartLineCap=PenLineCap.Round,EndLineCap=PenLineCap.Round};pen.Freeze();
+                dc.DrawGeometry(null,pen,paths[bucket]);drawCount++;
+            }
         }
+        FringeDrawCount=drawCount;
         var output=new RenderTargetBitmap(w,h,96,96,PixelFormats.Pbgra32);output.Render(drawing);output.Freeze();fringe.Source=output;ThreadCount=count;fringeDirty=false;FringeRevision++;
     }
     public void Dispose(){active=false;debounce.Stop();editor.TextChanged-=TextChanged;editor.SizeChanged-=LayoutChanged;editor.RemoveHandler(ScrollViewer.ScrollChangedEvent,new ScrollChangedEventHandler(Scrolled));inkLayer.Children.Clear();Children.Clear();}

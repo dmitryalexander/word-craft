@@ -25,6 +25,10 @@ sealed partial class WordCraftEditor
         canvas.Width=windowRoot.ActualWidth;canvas.Height=windowRoot.ActualHeight;
         simulationView.Width=windowRoot.ActualWidth*simulationZoom;
         simulationView.Height=windowRoot.ActualHeight*simulationZoom;
+        // Clip the final display in screen DIPs, rather than rounding the cloth itself.
+        simulationView.Clip=simulationZoom<1
+            ? new RectangleGeometry(new Rect(0,0,simulationView.Width,simulationView.Height),20,20)
+            : null;
     }
     internal void SetSimulationZoom(double fraction)
     {
@@ -37,9 +41,22 @@ sealed partial class WordCraftEditor
         SetSimulationZoom(simulationZoom+delta/120.0*.05);
         return true;
     }
+    internal bool HandleMeshFontWheel(int delta,ModifierKeys modifiers)
+    {
+        if(delta==0||modifiers!=ModifierKeys.Control||settings!=null||help.IsOpen||volumeDrag||scrubbing||WindowState==WindowState.Minimized)return false;
+        // Reserve Ctrl+wheel in all document modes so the reader never changes size.
+        if(!reading&&editor.IsHitTestVisible){
+            double size=Math.Max(8,Math.Min(160,editor.FontSize*Math.Pow(1.1,delta/120.0)));
+            if(size!=editor.FontSize){
+                editor.FontSize=size;
+                windSurface.MaterialRoot.InvalidateTextLayout();
+            }
+        }
+        return true;
+    }
     protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
     {
         base.OnPreviewMouseWheel(e);
-        if(!e.Handled&&HandleSimulationZoomWheel(e.Delta,Keyboard.Modifiers))e.Handled=true;
+        if(!e.Handled&&(HandleMeshFontWheel(e.Delta,Keyboard.Modifiers)||HandleSimulationZoomWheel(e.Delta,Keyboard.Modifiers)))e.Handled=true;
     }
 }

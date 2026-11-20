@@ -18,14 +18,22 @@ try {
  Check ($help.Background.Color.A -gt 100 -and $help.Background.Color.A -lt 255) 'Backdrop is not translucent'
  Check ($help.ActualWidth -eq $grid.ActualWidth -and $help.ActualHeight -eq $grid.ActualHeight) 'Controls do not cover the whole window'
  $rows=Field $help rows
- foreach($row in $rows){$keys=$row.Children[0];$description=$row.Children[1];if([Windows.Controls.Grid]::GetRow($description) -eq 0){Check ($keys.ActualWidth -le 220.1) 'A key chord overlaps its description'}}
+ foreach($row in $rows){$keys=$row.Children[0];$description=$row.Children[1];if([Windows.Controls.Grid]::GetRow($description) -eq 0){Check ($description.TranslatePoint((New-Object Windows.Point 0,0),$row).X -ge $keys.ActualWidth+11.9) 'A key chord overlaps its description';Check ($description.TextAlignment -eq 'Left' -and $keys.HorizontalAlignment -eq 'Left') 'Controls are not left aligned'}}
+ $scroll=Field $help scroll;$origin=$scroll.TranslatePoint((New-Object Windows.Point 0,0),$help)
+ Check ([Math]::Abs($origin.X-($help.ActualWidth-$origin.X-$scroll.ActualWidth)) -lt 1) 'Controls block has unequal left/right padding'
+ Check ([Math]::Abs($origin.Y-($help.ActualHeight-$origin.Y-$scroll.ActualHeight)) -lt 1) 'Controls block has unequal top/bottom padding'
+ Check ($scroll.ActualHeight -lt $help.ActualHeight-64) 'Guide stretched vertically instead of centering content'
  $letters=@();foreach($row in $rows){foreach($item in $row.Children[0].Children){if($item -is [Windows.Controls.Border]){$letters+=$item.Child.Child.Text;Check ($item.CornerRadius.TopLeft -gt 0 -and $item.Child.BorderThickness.Left -gt 0) 'A keycap lost its rounded physical shape'}}}
  Check ($letters -contains 'A' -and $letters -contains 'Ctrl' -and $letters -contains 'Space') 'Expected real key labels missing'
  Check (!(Call $window HandleSimulationZoomWheel @(-120,[Windows.Input.ModifierKeys]::None))) 'Help wheel resized the simulation'
  $key=KeyEvent ([Windows.Input.Key]::N);Call $window OnPreviewKeyDown @($key);Check ($key.Handled -and $editor.Text -eq $source) 'Help key input leaked into the document'
  Draw ('WordCraft-Keycap-Controls-'+$version+'.png')
  $up=KeyEvent ([Windows.Input.Key]::F1);$up.RoutedEvent=[Windows.Input.Keyboard]::PreviewKeyUpEvent;Call $window OnPreviewKeyUp @($up)
- Check (!(Prop $help IsOpen) -and  $help.HasAnimatedProperties -and $help.Visibility -eq [Windows.Visibility]::Visible) 'F1 release did not fade out'
+ Check ($up.Handled -and (Prop $help IsOpen)) 'F1 release closed the toggled guide'
+ Call $window OnPreviewKeyDown @((KeyEvent ([Windows.Input.Key]::F1)))
+ Check (!(Prop $help IsOpen) -and $help.HasAnimatedProperties -and $help.Visibility -eq [Windows.Visibility]::Visible) 'Second F1 press did not fade out'
+ $up=KeyEvent ([Windows.Input.Key]::F1);$up.RoutedEvent=[Windows.Input.Keyboard]::PreviewKeyUpEvent;Call $window OnPreviewKeyUp @($up)
+ Check (!(Prop $help IsOpen)) 'F1 release reopened the guide' 
  Call $help Show;PumpFor 200;Check ((Prop $help IsOpen) -and $help.Visibility -eq 'Visible') 'Old fade hid reopened controls'
  $escape=KeyEvent ([Windows.Input.Key]::Escape);Call $window OnPreviewKeyDown @($escape);PumpFor 170
  Check (!(Prop $help IsOpen) -and !(Field $window closed)) 'Escape closed app instead of guide'
@@ -37,5 +45,5 @@ try {
  Draw ('WordCraft-Keycap-Controls-small-'+$version+'.png')
  Call $help Hide @($true);Check ($help.Visibility -eq 'Collapsed' -and $help.Opacity -eq 0) 'Immediate cleanup failed'
  Check ($editor.Text -eq $source) 'Controls changed source'
- 'PASS: native rounded keycaps, spaced chord rows, full-window translucent backdrop, real F1 down/up/escape, fade reversal, input guards, options layering, small-screen scrolling and empty startup. Offscreen/audio disabled.'
+ 'PASS: centered controls with equal opposite padding, left-aligned labels beside fitted key chords, native rounded keycaps, spaced chord rows, full-window translucent backdrop, real F1 toggle/release/escape, fade reversal, input guards, options layering, small-screen scrolling and empty startup. Offscreen/audio disabled.'
 }finally{$hostWindow.Dispose();$window.Close()}

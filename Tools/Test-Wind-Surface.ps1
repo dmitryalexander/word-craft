@@ -63,5 +63,19 @@ try {
  Call $window ShowReader @($false,$true);Check (!(Prop $surface Running)) 'Reading keeps full-text solver running'
  Call $window ShowFullEditor;PumpFor 120;Check ($surface.Opacity -gt 0 -and $surface.Opacity -lt 1) 'Ctrl+A entrance fade lost'
  Call $window ReturnToTyping;PumpFor 800;Check ($surface.Opacity -eq 0 -and !(Prop $surface Running) -and $editor.Text -eq $source) 'Typing exit lost cleanup/source'
- 'PASS: native PBD evolution/fixed corners/camera, visible cloth, nine live sliders and save/reload, woven opacity/frayed silhouette/cache reuse, level toggle/reset/pause/suspend lifecycle, native click/Unicode undo/source and fades. Offscreen/audio disabled.'
+ # Overflow remains a native scrolling document, while fiber draw objects stay bounded.
+ Call $window ShowFullEditor;SetProp $surface Paused $true;Call $surface Show @($true,$false)
+ $long='START '+('Words fill a scrolling cloth without losing the source. '*2000)+' END'
+ $editor.FontSize=48;$editor.Text=$long;$editor.CaretIndex=$long.Length;$editor.ScrollToEnd();$grid.UpdateLayout();Call $material UpdateNow
+ Check ($editor.ExtentHeight -gt $editor.ViewportHeight -and $editor.VerticalOffset -gt 0 -and $editor.Text -eq $long) 'Overflow text was truncated or did not scroll'
+ Check ((Prop $material ThreadCount) -gt 128 -and (Prop $material FringeDrawCount) -le 128 -and (Prop $material FringeDrawCount) -gt 0) 'Dense text produces unbounded fiber draw objects'
+ $revision=Prop $material FringeRevision;Call $material UpdateNow
+ Check ((Prop $material FringeRevision) -eq $revision) 'Unchanged dense text rebuilt fibers'
+ $editor.Select($long.Length-3,3);$editor.SelectedText='FIN';[void]$editor.Undo()
+ Check ($editor.Text -eq $long) 'Dense cloth broke native undo'
+ $editor.ScrollToHome();$grid.UpdateLayout();Call $material UpdateNow
+ Check ($editor.VerticalOffset -eq 0 -and $editor.Text.StartsWith('START ') -and $editor.Text.EndsWith(' END')) 'Overflow lost the beginning or end'
+ Draw ('WordCraft-Dense-Cloth-'+$version+'.png')
+ $editor.Text=$source;Call $window ReturnToTyping
+ 'PASS: scrolling overflow/source/undo preserved, dense fiber drawing bounded to128 paths, native PBD evolution/fixed corners/camera, visible cloth, nine live sliders and save/reload, woven opacity/frayed silhouette/cache reuse, level toggle/reset/pause/suspend lifecycle, native click/Unicode undo/source and fades. Offscreen/audio disabled.'
 }finally{$hostWindow.Dispose();$window.Close()}
