@@ -3,7 +3,7 @@
 Target: https://github.com/dmitryalexander/word-craft
 Version/tag: 2.2.0 / v2.2.0
 
-1. Review this source snapshot, notices and licensing choice. No application license has been invented by the preparation process.
+1. Review this source snapshot and confirm the MIT LICENSE and THIRD-PARTY-NOTICES.md are included in source and portable packages.
 2. Build from a clean checkout, run Test.ps1, and create the ZIP with Package.ps1. Verify `dist/SHA256SUMS.txt`.
 3. Extract the portable ZIP into a separate writable folder and review typing, paste/read, Ctrl+A cloth selection/editing, Caps Lock options, audio levels, minimize/resume and close. Repeat on a second Windows machine. Confirm text is copied before closing.
 4. Commit/push the prepared Repository directory contents to the target repository after review. Do not include personal workspace diaries, caches, live binaries or test captures.

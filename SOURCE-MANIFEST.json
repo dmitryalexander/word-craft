@@ -235,6 +235,11 @@
       "source": "WordCraft/Bleeding-Edge/Demo-Publishing-2026-11-20/wordcraft-demo.jpg",
       "destination": "docs/wordcraft-demo.jpg",
       "sha256": "c2d54386c78eef031e47f4a21409612f70bd61fc8e261c11e78715ae5310bbaf"
+    },
+    {
+      "source": "WordCraft/LICENSE",
+      "destination": "LICENSE",
+      "sha256": "d3aac2749123484810d1a09efe8b37736929dceab9a96cd1df13929bc37fdaf5"
     }
   ]
 }

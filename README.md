@@ -61,4 +61,4 @@ All required C#, C++, shader, icon and PCM sources are included here. No sibling
 
 See [release notes](RELEASE-NOTES.md), [credits](THIRD-PARTY-NOTICES.md) and [release checklist](RELEASING.md). The workflow builds and uploads a portable artifact on pull requests/manual runs. Pushing a `v*` tag builds a **draft** GitHub release for review.
 
-No open-source license has been selected for the application source. Public availability does not grant a general reuse license; the separate CC0 audio attribution is documented in the credits.
+WordCraft is open source under the [MIT License](LICENSE). Copyright (c) 2026 dmitryalexander. The modem audio retains its CC0 dedication; see [credits](THIRD-PARTY-NOTICES.md).
