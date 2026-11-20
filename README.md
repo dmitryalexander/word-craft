@@ -2,6 +2,12 @@
 
 An immersive native Windows writing and reading app. Typed words stir procedural smoke; reading brings the draft into a kinetic line. The full-text editor places editable, woven letters on a simulated cloth surface.
 
+## Demo
+
+[![Watch the WordCraft demo](https://i.ytimg.com/vi/Bp3ybJkoUTM/hqdefault.jpg)](https://youtu.be/Bp3ybJkoUTM)
+
+[Watch the 2-minute demo on YouTube](https://youtu.be/Bp3ybJkoUTM) — smoke writing, kinetic reading and woven cloth text.
+
 ## Run
 
 Download `WordCraft-2.1.0-windows-x64.zip` from [Releases](https://github.com/dmitryalexander/word-craft/releases), extract the entire ZIP to a writable folder, then open `Open WordCraft.cmd` or `Bleeding-Edge/App/WordCraft.exe`. Keep the folder layout intact. No installer, account, Python, model download or chat connection is required.
