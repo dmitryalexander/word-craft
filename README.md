@@ -4,7 +4,7 @@ An immersive native Windows writing and reading app. Typed words stir procedural
 
 ## Demo
 
-[![Watch the WordCraft demo](https://i.ytimg.com/vi/Bp3ybJkoUTM/hqdefault.jpg)](https://youtu.be/Bp3ybJkoUTM)
+[![Watch the WordCraft demo](docs/wordcraft-demo.jpg)](https://youtu.be/Bp3ybJkoUTM)
 
 [Watch the 2-minute demo on YouTube](https://youtu.be/Bp3ybJkoUTM) — smoke writing, kinetic reading and woven cloth text.
 
