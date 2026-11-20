@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -14,13 +14,17 @@ sealed class WordCraftSettings : Grid
     readonly CheckBox playbackOnly,secondaryWhileReading;
     readonly WordCraftCharacterCaret characterCaret;
     readonly WordCraftWindSurface windSurface;
+    readonly WordCraftQuality qualitySettings;
+    readonly Slider quality;
+    readonly TextBlock qualityStatus=new TextBlock {Foreground=Brushes.Salmon,TextWrapping=TextWrapping.Wrap};
     readonly Slider wind,turbulence,tautness,gravity,texture,weave,textOpacity,fraying,fiberLength;
     readonly CheckBox levelLines,meshVisible,paused;
     readonly TextBlock characterStatus=new TextBlock { Foreground=Brushes.Salmon,TextWrapping=TextWrapping.Wrap };
-    internal WordCraftSettings(CloudSmokeView scene,WordCraftAudio sound,WordCraftCharacterCaret characterCaret,WordCraftWindSurface windSurface,Action changed,Action close)
+    internal WordCraftSettings(CloudSmokeView scene,WordCraftAudio sound,WordCraftCharacterCaret characterCaret,WordCraftWindSurface windSurface,WordCraftQuality qualitySettings,Action changed,Action close)
     {
         this.characterCaret=characterCaret;
         this.windSurface=windSurface;
+        this.qualitySettings=qualitySettings;
         Width=390;Margin=new Thickness(18);HorizontalAlignment=HorizontalAlignment.Right;
         VerticalAlignment=VerticalAlignment.Stretch;
         RowDefinitions.Add(new RowDefinition { Height=GridLength.Auto });
@@ -46,6 +50,11 @@ sealed class WordCraftSettings : Grid
         playbackOnly=new CheckBox { Content="Primary only during playback",IsChecked=sound.NoisePlaybackOnly,
             Foreground=Brushes.LightSteelBlue,Margin=new Thickness(0,9,0,0),ToolTip="Fades in while reading; fades out when paused or finished" };
         body.Children.Add(playbackOnly);
+        body.Children.Add(new TextBlock {Text="Graphics quality",FontSize=18,Foreground=Brushes.WhiteSmoke,Margin=new Thickness(0,12,0,2)});
+        var qualityLabel=new TextBlock {Text=WordCraftQuality.Names[qualitySettings.Level],Foreground=Brushes.LightSteelBlue};body.Children.Add(qualityLabel);
+        quality=new Slider {Minimum=0,Maximum=3,TickFrequency=1,IsSnapToTickEnabled=true,Value=qualitySettings.Level,ToolTip="Low uses less graphics power; Ultra gives the sharpest smoke."};
+        quality.ValueChanged+=(s,e)=>{qualitySettings.Level=(int)Math.Round(quality.Value);qualityLabel.Text=WordCraftQuality.Names[qualitySettings.Level];qualitySettings.Save();qualityStatus.Text=qualitySettings.Error??"";};
+        body.Children.Add(quality);body.Children.Add(new TextBlock {Text="Low  ·  Balanced  ·  High  ·  Ultra",Foreground=Brushes.LightSteelBlue,FontSize=11});body.Children.Add(qualityStatus);
         playbackOnly.Checked+=(s,e)=>{sound.NoisePlaybackOnly=true;changed();};
         playbackOnly.Unchecked+=(s,e)=>{sound.NoisePlaybackOnly=false;changed();};
         colors=new ChatColorPanel(scene.Colors,scene.Phase,phase=>scene.PreviewColors(phase),close);
@@ -144,6 +153,6 @@ sealed class WordCraftSettings : Grid
         Action refresh=()=>label.Text=name+"  "+(name=="Wind"?slider.Value.ToString("0.0")+"×":name=="Weave size"||name=="Fiber length"?slider.Value.ToString("0.0")+" px":Math.Round(slider.Value*100)+"%");
         refresh();slider.ValueChanged+=(s,e)=>{refresh();changed(slider.Value);};body.Children.Add(label);body.Children.Add(slider);return slider;
     }
-    internal bool Save(){bool result=colors.Save()&&characterCaret.Save()&&windSurface.Save();characterStatus.Text=characterCaret.Error??windSurface.Error??"";return result;}
+    internal bool Save(){bool result=qualitySettings.Save()&&colors.Save()&&characterCaret.Save()&&windSurface.Save();characterStatus.Text=characterCaret.Error??windSurface.Error??"";return result;}
     internal void FocusEditor(){morse.Focus();}
 }

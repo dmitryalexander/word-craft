@@ -1,12 +1,12 @@
 # Release procedure
 
 Target: https://github.com/dmitryalexander/word-craft
-Version/tag: 2.0.0 / v2.0.0
+Version/tag: 2.1.0 / v2.1.0
 
 1. Review this source snapshot, notices and licensing choice. No application license has been invented by the preparation process.
 2. Build from a clean checkout, run Test.ps1, and create the ZIP with Package.ps1. Verify `dist/SHA256SUMS.txt`.
 3. Extract the portable ZIP into a separate writable folder and review typing, paste/read, Ctrl+A cloth selection/editing, Caps Lock options, audio levels, minimize/resume and close. Repeat on a second Windows machine. Confirm text is copied before closing.
 4. Commit/push the prepared Repository directory contents to the target repository after review. Do not include personal workspace diaries, caches, live binaries or test captures.
-5. Create/push tag `v2.0.0`. The workflow builds a draft release; review its attached ZIP/checksums and notes before publishing. Manual workflow runs only create downloadable build artifacts.
+5. Create/push tag `v2.1.0`. The workflow builds a draft release; review its attached ZIP/checksums and notes before publishing. Manual workflow runs only create downloadable build artifacts.
 
 Prepared files are local only. No commit, push, tag or public release is performed by preparation. Local graphics regression checks do not establish creative acceptance or broad hardware compatibility.

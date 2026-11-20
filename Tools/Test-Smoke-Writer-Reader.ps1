@@ -43,7 +43,7 @@ try {
  Draw "WordCraft-Idle-$version.png"
  $smoke=Field $scene smoke;$gpu=Prop $smoke Paint
  Check ($null -ne $gpu -and !(Prop $gpu Failed)) 'Native smoke GPU was not initialized'
- Check ((Prop $gpu Grid).Contains('576 flow')) 'ChatCraft flow resolution not retained'
+ Check ((Field $gpu flowHeight) -ge 144) 'Smoke quality grid not initialized'
  Check ((Get-Process -Id $PID).Modules.ModuleName -contains 'WordCraftSmoke.dll') 'Dedicated smoke DLL not loaded'
  for($i=0;$i -lt 12;$i++){Call $gpu Advance}
  Check (!(Prop $gpu Failed) -and (Prop $gpu Milliseconds) -gt 0) 'Native smoke did not complete GPU frames'

@@ -12,7 +12,7 @@ $references=foreach($name in 'PresentationCore','PresentationFramework','Windows
  if(!$reference){throw "Missing framework reference: $name"}
  "/reference:$($reference.FullName)"
 }
-$sources=@('WordCraftEditor.cs','WordCraftWindSurface.cs','WordCraftClothSimulation.cs','WordCraftCanvasMaterial.cs','WordCraftCharacterCaret.cs','WordCraftPhaseColors.cs','WordCraftSettings.cs','WordCraftAudio.cs','WordFlowView.cs','FlowMarkdown.cs','WordViewEffects.cs','ViewTuning.cs','SmokeLoadingWorkshop.cs')|ForEach-Object{Join-Path $app $_}
+$sources=@('WordCraftEditor.cs','WordCraftQuality.cs','WordCraftWindSurface.cs','WordCraftClothSimulation.cs','WordCraftCanvasMaterial.cs','WordCraftCharacterCaret.cs','WordCraftPhaseColors.cs','WordCraftSettings.cs','WordCraftAudio.cs','WordFlowView.cs','FlowMarkdown.cs','WordViewEffects.cs','ViewTuning.cs','SmokeLoadingWorkshop.cs')|ForEach-Object{Join-Path $app $_}
 $sources+=@('KineticReader.cs','FlowTuningPanel.cs','ReaderRaster.cs','RuledReader.cs','ReaderNarration.cs','NarrationEffects.cs')|ForEach-Object{Join-Path $page $_}
 $sources+=@('JapaneseRomaji.cs','FlowSmokeOverlay.cs','ChatTypography.cs','ChatColorPanel.cs')|ForEach-Object{Join-Path $chat $_}
 $stage=New-Item -ItemType Directory -Path (Join-Path ([IO.Path]::GetTempPath()) ('WordCraft-reader-'+[guid]::NewGuid()))
@@ -59,6 +59,9 @@ try {
  $sources=@($sources|Where-Object{[IO.Path]::GetFileName($_) -ne 'ViewTuning.cs'})
  $source=[IO.File]::ReadAllText((Join-Path $app 'ViewTuning.cs')).Replace('View-Tuning.txt','WordCraft-Smoke-Tuning.txt')
  $destination=Join-Path $stage.FullName 'ViewTuning.cs';[IO.File]::WriteAllText($destination,$source);$sources+=$destination
+ & (Join-Path $PSScriptRoot 'Stage-WordCraftQuality.ps1') -App $app -Stage $stage.FullName
+ $sources=@($sources|Where-Object{[IO.Path]::GetFileName($_) -ne 'WordViewEffects.cs'})
+ $sources+=(Join-Path $stage.FullName 'WordViewEffects.cs')
  $built=Join-Path $stage.FullName 'WordCraft.exe'
  & $compiler /nologo /target:winexe /platform:x64 /optimize+ /unsafe /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Web.Extensions.dll @references "/win32icon:$icon" "/resource:$icon,WordCraft.ico" "/resource:$(Join-Path $chat 'DialUpMorse.pcm'),DialUpMorse.pcm" "/out:$built" @sources
  if($LASTEXITCODE){throw 'WordCraft smoke reader/writer compilation failed.'}

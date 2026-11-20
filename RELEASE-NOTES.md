@@ -1,6 +1,6 @@
-# WordCraft 2.0.0
+# WordCraft 2.1.0
 
-Initial portable Windows x64 release candidate.
+Adds a saved live Graphics quality slider under Caps Lock: Low, Balanced, High and Ultra. New downloads start on Balanced. Lower settings reduce smoke simulation/output resolution, pressure iterations and update rate.
 
 - Native smoke writing and kinetic text reading, with smooth mode/color transitions.
 - Editable woven text on a cloth simulation with fixed corner anchors, fraying and live material/motion controls.

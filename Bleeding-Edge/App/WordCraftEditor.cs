@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -19,7 +19,7 @@ using Forms=System.Windows.Forms;
 
 [assembly:AssemblyTitle("WordCraft")]
 [assembly:AssemblyProduct("WordCraft")]
-[assembly:AssemblyVersion("2.0.0.0")]
+[assembly:AssemblyVersion("2.1.0.0")]
 
 sealed class WordCraftEditor : Window
 {
@@ -59,6 +59,7 @@ sealed class WordCraftEditor : Window
     readonly WordCraftAudio sound;
     readonly WordCraftCharacterCaret characterCaret;
     readonly WordCraftWindSurface windSurface;
+    readonly WordCraftQuality quality;
     WordFlowView flow;
     FlowSmokeOverlay readingView;
     string readerText;
@@ -87,6 +88,7 @@ sealed class WordCraftEditor : Window
         sound=new WordCraftAudio(enableAudio);
         characterCaret=new WordCraftCharacterCaret(editor);
         windSurface=new WordCraftWindSurface(editor);
+        quality=new WordCraftQuality(()=>scene.RefreshQuality());
         audioPath=Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),"..","Audio-Settings.json"));
         LoadVolume();
         Title="WordCraft";Width=1100;Height=760;MinWidth=380;MinHeight=220;
@@ -154,7 +156,7 @@ sealed class WordCraftEditor : Window
     {
         if(settings!=null){CloseSettings();return;}
         EndGesture(true,false);help.Visibility=Visibility.Collapsed;
-        settings=new WordCraftSettings(scene,sound,characterCaret,windSurface,()=>volumeDirty=true,CloseSettings);
+        settings=new WordCraftSettings(scene,sound,characterCaret,windSurface,quality,()=>volumeDirty=true,CloseSettings);
         Panel.SetZIndex(settings,100);canvas.Children.Add(settings);canvas.UpdateLayout();settings.FocusEditor();
     }
     internal void CloseSettings()
@@ -493,5 +495,5 @@ sealed class WordCraftEditor : Window
         catch(UnauthorizedAccessException error){ShowFeedback(-1,"Audio settings: "+error.Message);return false;}
     }
     protected override void OnClosed(EventArgs e)
-    {closed=true;EndGesture(true,false);if(settings!=null)settings.Save();characterCaret.Save();characterCaret.Dispose();windSurface.Save();windSurface.Dispose();SaveVolume();timer.Stop();sound.Dispose();if(flow!=null)flow.Dispose();scene.Dispose();base.OnClosed(e);}
+    {closed=true;EndGesture(true,false);if(settings!=null)settings.Save();characterCaret.Save();characterCaret.Dispose();windSurface.Save();windSurface.Dispose();quality.Save();SaveVolume();timer.Stop();sound.Dispose();if(flow!=null)flow.Dispose();scene.Dispose();base.OnClosed(e);}
 }

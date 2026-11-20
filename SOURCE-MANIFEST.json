@@ -1,10 +1,15 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "files": [
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftQuality.cs",
+      "destination": "Bleeding-Edge/App/WordCraftQuality.cs",
+      "sha256": "a5aeda5b1864f1ffa675e965d173916fc800c781ccdbefbd0de6177cfded0320"
+    },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftEditor.cs",
       "destination": "Bleeding-Edge/App/WordCraftEditor.cs",
-      "sha256": "97de332a175ae6f1a63603614d931321f1b4fb6abef51089130e04b11a61332d"
+      "sha256": "ffb05684d61a14093757f8b5b78602f491338ee5da80aae7703fdf418e8c14a6"
     },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftWindSurface.cs",
@@ -34,7 +39,7 @@
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftSettings.cs",
       "destination": "Bleeding-Edge/App/WordCraftSettings.cs",
-      "sha256": "6d8295cc95752eaaecb4b0074e92cf9964ddedd48b1c3887a77be64539507fa9"
+      "sha256": "1a43cd0db5fc43d9cdcc4f078a70878a6b2ac16a4f24db5d622b7e383829d75c"
     },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftAudio.cs",
@@ -162,12 +167,12 @@
       "sha256": "d0c618dde05506097f31a62187595b262281f733705ed062454a429c8c186734"
     },
     {
-      "source": "ChatCraft/Bleeding-Edge/App/ChatColorPanel.cs",
+      "source": "WordCraft/Bleeding-Edge/Releases/v2.0.0/Repository/Bleeding-Edge/App/ChatColorPanel.cs",
       "destination": "Bleeding-Edge/App/ChatColorPanel.cs",
       "sha256": "5c08bf430b9ef407ebe6ac4c48ada20709daf534cbb367f4dac94ec3040409cb"
     },
     {
-      "source": "ChatCraft/Bleeding-Edge/App/CloudSmokeView.cs",
+      "source": "WordCraft/Bleeding-Edge/Releases/v2.0.0/Repository/Bleeding-Edge/App/CloudSmokeView.cs",
       "destination": "Bleeding-Edge/App/CloudSmokeView.cs",
       "sha256": "3a9d77cbaf766afb4b92256a9058a1a7d0c8e6582bd34e636acc980f32a45d95"
     },
@@ -215,6 +220,11 @@
       "source": "WordCraft/Bleeding-Edge/WordCraft-Smoke-Quality.txt",
       "destination": "Defaults/WordCraft-Smoke-Quality.txt",
       "sha256": "c4ebc6d4a5832cd9415f906ad03661110c705a72381c8b8b145761d02e2dd23a"
+    },
+    {
+      "source": "WordCraft/Tools/Stage-WordCraftQuality.ps1",
+      "destination": "Tools/Stage-WordCraftQuality.ps1",
+      "sha256": "3af5b1ce226d586f775ab7cdfcfc32a712c4c2088c7ed7f9cf44dcf9fe785e9d"
     }
   ]
 }
