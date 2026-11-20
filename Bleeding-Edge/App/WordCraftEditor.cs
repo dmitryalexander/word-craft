@@ -19,7 +19,7 @@ using Forms=System.Windows.Forms;
 
 [assembly:AssemblyTitle("WordCraft")]
 [assembly:AssemblyProduct("WordCraft")]
-[assembly:AssemblyVersion("2.3.1.0")]
+[assembly:AssemblyVersion("2.3.2.0")]
 
 sealed partial class WordCraftEditor : Window
 {
@@ -260,6 +260,16 @@ sealed partial class WordCraftEditor : Window
         if(key!=Key.A||modifiers!=ModifierKeys.Alt)return false;
         if(!repeat)ReturnToTyping();return true;
     }
+    internal bool HandleTabShortcut(Key key,ModifierKeys modifiers,bool repeat)
+    {
+        if(key!=Key.Tab)return false;
+        if(!repeat){
+            if(volumeDrag||scrubbing)EndGesture(true,true);
+            if((modifiers&ModifierKeys.Control)!=0)ShowReader(false,true);
+            else if(reading)ShowEditor();else ShowReader(true,false);
+        }
+        return true;
+    }
     internal bool HandleReplayShortcut(Key key,ModifierKeys modifiers,bool repeat)
     {
         if(key!=Key.Space||modifiers!=(ModifierKeys.Control|ModifierKeys.Shift))return false;
@@ -344,13 +354,7 @@ sealed partial class WordCraftEditor : Window
         {e.Handled=true;if(!e.IsRepeat){if(volumeDrag||scrubbing)EndGesture(true,true);else Close();}return;}
         if((volumeDrag||scrubbing)&&e.Key!=Key.LeftShift&&e.Key!=Key.RightShift&&e.Key!=Key.LeftCtrl&&e.Key!=Key.RightCtrl)
             EndGesture(true,true);
-        if(e.Key==Key.Tab)
-        {
-            e.Handled=true;
-            if((modifiers&ModifierKeys.Control)!=0){if(!e.IsRepeat){if(reading)ShowEditor();else ShowReader(false,false);}}
-            else if(!e.IsRepeat){if(reading)ShowEditor();else ShowReader(true,false);}
-            return;
-        }
+        if(HandleTabShortcut(key,modifiers,e.IsRepeat)){e.Handled=true;return;}
 
         if(e.Key==Key.V&&modifiers==ModifierKeys.Control)
         {e.Handled=true;try{if(Clipboard.ContainsText())PasteText(Clipboard.GetText());}catch(ExternalException){}return;}

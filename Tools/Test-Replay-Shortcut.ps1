@@ -6,6 +6,7 @@ $fixtureRoot=$PSScriptRoot;$setup=$setup.Replace('$PSScriptRoot','$fixtureRoot')
 Invoke-Expression $setup
 function SetField($o,$name,$value){$o.GetType().GetField($name,$flags).SetValue($o,$value)}
 function Replay([bool]$repeat=$false){return (Call $window HandleReplayShortcut @([Windows.Input.Key]::Space,([Windows.Input.ModifierKeys]::Control -bor [Windows.Input.ModifierKeys]::Shift),$repeat))}
+function PausedStart([bool]$repeat=$false){return (Call $window HandleTabShortcut @([Windows.Input.Key]::Tab,[Windows.Input.ModifierKeys]::Control,$repeat))}
 try {
  $grid.UpdateLayout();$editor=Field $window editor
  Check ((Replay) -and $null -eq (Field $window flow) -and $editor.Text -eq '') 'Empty replay inserted text or eagerly opened reader'
@@ -39,7 +40,25 @@ try {
  Check ((Replay) -and $null -ne (Field $window settings) -and $reader.TextAnchor -eq 0 -and $reader.PlaybackDirection -eq 1) 'Settings-open replay failed'
  Check ($editor.Text -eq $original) 'Replay changed source'
  Call $window CloseSettings
+ Call $window ShowEditor @([int]-1);$editor.CaretIndex=13
+ Check ((PausedStart) -and (Field $window reading) -and $reader.TextAnchor -eq 0 -and $reader.PlaybackDirection -eq 0) 'Typing Ctrl+Tab did not start paused at beginning'
+ $reader.Seek(13)
+ Check ((PausedStart $true) -and $reader.TextAnchor -eq 13) 'Repeated Ctrl+Tab reset position'
+ Check ((PausedStart) -and (Field $window reading) -and $reader.TextAnchor -eq 0 -and $reader.PlaybackDirection -eq 0) 'Paused reading Ctrl+Tab returned to writing or kept old position'
+ $reader.Seek(13);$reader.StartPlayback(1)
+ Check ((PausedStart) -and $reader.TextAnchor -eq 0 -and $reader.PlaybackDirection -eq 0) 'Playing Ctrl+Tab did not rewind and stop'
+ $reader.Seek($original.Length)
+ Check ((PausedStart) -and $reader.TextAnchor -eq 0 -and $reader.PlaybackDirection -eq 0) 'End Ctrl+Tab did not rewind paused'
+ Call $window ShowFullEditor;$editor.Select(4,6)
+ Check ((PausedStart) -and (Field $window reading) -and !$editor.IsHitTestVisible -and $reader.TextAnchor -eq 0 -and $reader.PlaybackDirection -eq 0) 'Full mesh Ctrl+Tab failed'
+ Call $window BeginScrub
+ Check ((PausedStart) -and !(Field $window scrubbing) -and $reader.TextAnchor -eq 0 -and $reader.PlaybackDirection -eq 0) 'Ctrl+Tab did not cancel scrub'
+ Check ($editor.Text -eq $original) 'Ctrl+Tab changed source'
+ Call $window HandleTabShortcut @([Windows.Input.Key]::Tab,[Windows.Input.ModifierKeys]::None,$false)|Out-Null
+ Check (!(Field $window reading)) 'Plain Tab no longer returns to writing'
+ Call $window HandleTabShortcut @([Windows.Input.Key]::Tab,[Windows.Input.ModifierKeys]::None,$false)|Out-Null
+ Check ((Field $window reading) -and $reader.PlaybackDirection -eq 1) 'Plain Tab no longer starts reading'
  $reader.PausePlayback();(Field $window timer).Stop()
  Check ($null -eq (Field (Field (Field $window sound) noiseOutput) pump)) 'Replay fixture opened audio output'
- 'PASS: Ctrl+Shift+Space from empty/fresh typing/paused/end/full-text/settings, scrub cancellation, repeat suppression and unchanged source. Offscreen/audio disabled.'
+ 'PASS: Ctrl+Tab rewinds paused from writing/mesh/playing/paused/end, repeat and gesture guards, plain Tab unchanged; Ctrl+Shift+Space from empty/fresh typing/paused/end/full-text/settings, scrub cancellation, repeat suppression and unchanged source. Offscreen/audio disabled.'
 }finally{$hostWindow.Dispose();$window.Close()}

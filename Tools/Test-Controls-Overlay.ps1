@@ -22,7 +22,8 @@ try {
  $scroll=Field $help scroll;$origin=$scroll.TranslatePoint((New-Object Windows.Point 0,0),$help)
  Check ([Math]::Abs($origin.X-($help.ActualWidth-$origin.X-$scroll.ActualWidth)) -lt 1) 'Controls block has unequal left/right padding'
  Check ([Math]::Abs($origin.Y-($help.ActualHeight-$origin.Y-$scroll.ActualHeight)) -lt 1) 'Controls block has unequal top/bottom padding'
- Check ($scroll.ActualHeight -lt $help.ActualHeight-64) 'Guide stretched vertically instead of centering content'
+ Check ($scroll.ActualHeight -le $help.ActualHeight-64+0.01) 'Guide exceeds safe viewport height'
+ if($scroll.ScrollableHeight -eq 0){Check ([Math]::Abs($scroll.ActualHeight-$scroll.ExtentHeight) -lt 1) 'Guide stretched vertically instead of centering content'}
  $letters=@();foreach($row in $rows){foreach($item in $row.Children[0].Children){if($item -is [Windows.Controls.Border]){$letters+=$item.Child.Child.Text;Check ($item.CornerRadius.TopLeft -gt 0 -and $item.Child.BorderThickness.Left -gt 0) 'A keycap lost its rounded physical shape'}}}
  Check ($letters -contains 'A' -and $letters -contains 'Ctrl' -and $letters -contains 'Space') 'Expected real key labels missing'
  Check (!(Call $window HandleSimulationZoomWheel @(-120,[Windows.Input.ModifierKeys]::None))) 'Help wheel resized the simulation'

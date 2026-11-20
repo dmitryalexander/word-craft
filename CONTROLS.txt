@@ -9,7 +9,7 @@ Enter / Ctrl+Enter      Start reading; while reading, return to writing.
 Shift+Enter             Insert a new line while editing.
 Ctrl+V                  Paste text at the selection and start reading.
 Tab                     Switch between writing and reading.
-Ctrl+Tab                Return to writing, or open reading paused.
+Ctrl+Tab                Go to the beginning of the text in reading, paused.
 Space while reading     Pause or play.
 Ctrl+Shift+Space        Restart reading from the beginning.
 Hold Shift              Read at one third speed.

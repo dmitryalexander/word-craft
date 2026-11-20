@@ -34,7 +34,7 @@ sealed class WordCraftControlsOverlay : Grid
             new[]{"Ctrl+V","Paste and read"},new[]{"Ctrl+A","Full text / select all"},
             new[]{"Alt+A","Back to smoke typing"},new[]{"Ctrl+N","Clear the draft"}});
         Section("READ",new[]{
-            new[]{"Space","Play / pause"},new[]{"Ctrl+Shift+Space","Replay from the beginning"},
+            new[]{"Space","Play / pause"},new[]{"Ctrl+Tab","Beginning · paused"},new[]{"Ctrl+Shift+Space","Replay from the beginning"},
             new[]{"Shift","Slow reading · hold"},new[]{"← / →","Previous / next word"},
             new[]{"Home / End","Beginning / end"},new[]{"@Click a word","Edit at that word"}});
         Section("MOVE & LOOK",new[]{

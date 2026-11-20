@@ -6,15 +6,9 @@ An immersive native Windows writing and reading app. Typed words stir procedural
 
 See the [complete controls sheet](CONTROLS.txt) for all shortcuts.
 
-## Demo
-
-[![Watch the WordCraft demo](docs/wordcraft-demo.jpg)](https://youtu.be/Bp3ybJkoUTM)
-
-[Watch the demo on YouTube](https://youtu.be/Bp3ybJkoUTM).
-
 ## Run
 
-Download `WordCraft-2.3.1-windows-x64.zip` from [Releases](https://github.com/dmitryalexander/word-craft/releases), extract the entire ZIP to a writable folder, then open `Open WordCraft.cmd` or `Bleeding-Edge/App/WordCraft.exe`. Keep the folder layout intact. No installer, account, Python, model download or chat connection is required.
+Download `WordCraft-2.3.2-windows-x64.zip` from [Releases](https://github.com/dmitryalexander/word-craft/releases), extract the entire ZIP to a writable folder, then open `Open WordCraft.cmd` or `Bleeding-Edge/App/WordCraft.exe`. Keep the folder layout intact. No installer, account, Python, model download or chat connection is required.
 
 Windows 10/11 x64, .NET Framework 4.8 and a Direct3D 11 GPU with Shader Model 5 support are required. Windows fonts are used; unavailable families fall back to installed fonts. The executable is unsigned. Settings are saved beside the app under `Bleeding-Edge`; use a writable folder rather than Program Files.
 
@@ -31,7 +25,7 @@ Windows 10/11 x64, .NET Framework 4.8 and a Direct3D 11 GPU with Shader Model 5 
 | Shift+Enter | Insert a new line |
 | Ctrl+V | Paste text and start reading |
 | Tab | Switch typing/reading |
-| Ctrl+Tab | Open reading paused |
+| Ctrl+Tab | Go to the beginning of the text, paused |
 | Space while reading | Pause/play |
 | Ctrl+Shift+Space | Replay from the start |
 | Hold Shift | Read at one third speed |

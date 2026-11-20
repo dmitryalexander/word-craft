@@ -1,5 +1,5 @@
 {
-  "version": "2.3.1",
+  "version": "2.3.2",
   "files": [
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftQuality.cs",
@@ -9,12 +9,12 @@
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftEditor.cs",
       "destination": "Bleeding-Edge/App/WordCraftEditor.cs",
-      "sha256": "ac574dad52d7e3b66046e211fc168754f63873d97c08e32d323e5f7fa009e175"
+      "sha256": "821a849fb4392ccf431c709a55aeb4bec380721999cc08a8a5e2971c398a6b31"
     },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftControlsOverlay.cs",
       "destination": "Bleeding-Edge/App/WordCraftControlsOverlay.cs",
-      "sha256": "3d7c39930adb3cc31b4170ee2ea702f2ff8c30a2943c51709ced1ac7d1010027"
+      "sha256": "3a743d14d25fd889f6dc6e4df33405d49b812894f847216e19f3d0cd09342010"
     },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftSimulationZoom.cs",
@@ -237,11 +237,6 @@
       "sha256": "3af5b1ce226d586f775ab7cdfcfc32a712c4c2088c7ed7f9cf44dcf9fe785e9d"
     },
     {
-      "source": "WordCraft/Bleeding-Edge/Demo-Publishing-2026-11-20/wordcraft-demo.jpg",
-      "destination": "docs/wordcraft-demo.jpg",
-      "sha256": "c2d54386c78eef031e47f4a21409612f70bd61fc8e261c11e78715ae5310bbaf"
-    },
-    {
       "source": "WordCraft/LICENSE",
       "destination": "LICENSE",
       "sha256": "d3aac2749123484810d1a09efe8b37736929dceab9a96cd1df13929bc37fdaf5"
@@ -249,7 +244,7 @@
     {
       "source": "WordCraft/CONTROLS.txt",
       "destination": "CONTROLS.txt",
-      "sha256": "6c55f786dc03e805d2796162f149fad9c6e55bf7c8d6e7be90ddfcbc9011d49c"
+      "sha256": "98045dd3184f1300cbff867b09d364d0a064c255f208069d5207ed5a663dba38"
     }
   ]
 }
