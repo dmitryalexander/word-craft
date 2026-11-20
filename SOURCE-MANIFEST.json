@@ -1,5 +1,5 @@
 {
-  "version": "2.1.1",
+  "version": "2.2.0",
   "files": [
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftQuality.cs",
@@ -9,7 +9,12 @@
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftEditor.cs",
       "destination": "Bleeding-Edge/App/WordCraftEditor.cs",
-      "sha256": "61e6ed95b3657e69616790eb766ba527a63d61af88f5127797d42bc8e376b9db"
+      "sha256": "c3a3a0bf981fcbe8c2c036d1a7ff6701e03dab2533c5209e7dae2e3097e6cc92"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftWindowZoom.cs",
+      "destination": "Bleeding-Edge/App/WordCraftWindowZoom.cs",
+      "sha256": "6c97e3cbf92b0743495b13166e7af9f94529a30fb1de6ad1ebe12d77755e3de0"
     },
     {
       "source": "WordCraft/Bleeding-Edge/App/WordCraftWindSurface.cs",

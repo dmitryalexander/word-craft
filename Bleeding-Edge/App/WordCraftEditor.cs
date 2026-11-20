@@ -19,9 +19,9 @@ using Forms=System.Windows.Forms;
 
 [assembly:AssemblyTitle("WordCraft")]
 [assembly:AssemblyProduct("WordCraft")]
-[assembly:AssemblyVersion("2.1.1.0")]
+[assembly:AssemblyVersion("2.2.0.0")]
 
-sealed class WordCraftEditor : Window
+sealed partial class WordCraftEditor : Window
 {
     static WordCraftEditor()
     {AppContext.SetSwitch("Switch.System.Windows.Controls.Text.UseAdornerForTextboxSelectionRendering",false);}
@@ -39,7 +39,7 @@ sealed class WordCraftEditor : Window
         HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,UndoLimit=200
     };
     readonly TextBlock help=new TextBlock {
-        Text="Enter  read    Shift+Enter  new line    Tab / Ctrl+Tab  typing / reading\nPaste  insert & read    Space  pause / play    Ctrl+Shift+Space  replay\nCaps Lock  audio balance + WordCraft colors\nCtrl+drag  master volume    Shift+drag  scrub    Hold Shift  slow\nClick a reading word  edit there    Ctrl+A  full text    Alt+A  typing    ` / ~  fullscreen\nEsc  close panel / app    Hold F1  controls",
+        Text="Enter  read    Shift+Enter  new line    Tab / Ctrl+Tab  typing / reading\nPaste  insert & read    Space  pause / play    Ctrl+Shift+Space  replay\nCaps Lock  audio balance + WordCraft colors\nCtrl+drag  master volume    Shift+drag  scrub    Hold Shift  slow\nClick a reading word  edit there    Ctrl+A  full text    Alt+A  typing    ` / ~  fullscreen\nWheel  window size 25–100%\nEsc  close panel / app    Hold F1  controls",
         Foreground=Brushes.LightSteelBlue,Background=new SolidColorBrush(Color.FromArgb(235,17,23,35)),
         Padding=new Thickness(20),HorizontalAlignment=HorizontalAlignment.Center,
         VerticalAlignment=VerticalAlignment.Bottom,Margin=new Thickness(20),Visibility=Visibility.Collapsed,

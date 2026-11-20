@@ -1,6 +1,6 @@
-# WordCraft 2.1.1
+# WordCraft 2.2.0
 
-Fixes uppercase typing being interrupted by Shift+Space. Replay now uses Ctrl+Shift+Space; Shift+Space types a normal space. Graphics quality and other controls remain available.
+Adds mouse-wheel window zoom: forward enlarges, backward shrinks, bounded to 25–100% of the current monitor width and height, centered and borderless. The options panel keeps normal scrolling; modified wheel controls remain separate. Ctrl+Shift+Space replay and Shift+Space typing remain.
 
 - Native smoke writing and kinetic text reading, with smooth mode/color transitions.
 - Editable woven text on a cloth simulation with fixed corner anchors, fraying and live material/motion controls.

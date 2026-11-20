@@ -10,7 +10,7 @@ An immersive native Windows writing and reading app. Typed words stir procedural
 
 ## Run
 
-Download `WordCraft-2.1.1-windows-x64.zip` from [Releases](https://github.com/dmitryalexander/word-craft/releases), extract the entire ZIP to a writable folder, then open `Open WordCraft.cmd` or `Bleeding-Edge/App/WordCraft.exe`. Keep the folder layout intact. No installer, account, Python, model download or chat connection is required.
+Download `WordCraft-2.2.0-windows-x64.zip` from [Releases](https://github.com/dmitryalexander/word-craft/releases), extract the entire ZIP to a writable folder, then open `Open WordCraft.cmd` or `Bleeding-Edge/App/WordCraft.exe`. Keep the folder layout intact. No installer, account, Python, model download or chat connection is required.
 
 Windows 10/11 x64, .NET Framework 4.8 and a Direct3D 11 GPU with Shader Model 5 support are required. Windows fonts are used; unavailable families fall back to installed fonts. The executable is unsigned. Settings are saved beside the app under `Bleeding-Edge`; use a writable folder rather than Program Files.
 
@@ -20,6 +20,7 @@ Windows 10/11 x64, .NET Framework 4.8 and a Direct3D 11 GPU with Shader Model 5 
 
 | Control | Action |
 | --- | --- |
+| Mouse wheel | Resize the window from 25% to fullscreen (forward enlarges) |
 | Type | Write into the smoke view |
 | Enter / Ctrl+Enter | Read from the start |
 | Shift+Enter | Insert a new line |
