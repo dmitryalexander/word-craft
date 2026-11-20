@@ -1,0 +1,10 @@
+Bleeding-Edge/*
+!Bleeding-Edge/App/
+Bleeding-Edge/App/*
+!Bleeding-Edge/App/*.cs
+!Bleeding-Edge/App/*.cpp
+!Bleeding-Edge/App/*.hlsl
+!Bleeding-Edge/App/*.ico
+!Bleeding-Edge/App/*.pcm
+dist/
+*.log

@@ -1,0 +1,50 @@
+name: Windows release
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build native and managed app
+        shell: powershell
+        run: ./Build.ps1
+      - name: Check tag matches assembly version
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: powershell
+        run: |
+          $version=[Reflection.AssemblyName]::GetAssemblyName((Resolve-Path 'Bleeding-Edge/App/WordCraft.exe')).Version.ToString(3)
+          if($env:GITHUB_REF_NAME -ne "v$version"){throw 'Tag/version mismatch'}
+      - name: Package portable app
+        shell: powershell
+        run: ./Package.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WordCraft-windows-x64
+          path: |
+            dist/*.zip
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
+  draft-release:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: build
+    runs-on: windows-2022
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: WordCraft-windows-x64
+          path: dist
+      - name: Create draft release
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create $env:GITHUB_REF_NAME dist/*.zip dist/SHA256SUMS.txt --verify-tag --draft --title "WordCraft $($env:GITHUB_REF_NAME)" --notes-file RELEASE-NOTES.md

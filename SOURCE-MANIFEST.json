@@ -1,0 +1,220 @@
+{
+  "version": "2.0.0",
+  "files": [
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftEditor.cs",
+      "destination": "Bleeding-Edge/App/WordCraftEditor.cs",
+      "sha256": "97de332a175ae6f1a63603614d931321f1b4fb6abef51089130e04b11a61332d"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftWindSurface.cs",
+      "destination": "Bleeding-Edge/App/WordCraftWindSurface.cs",
+      "sha256": "5897fbc4002655536ee6d20473bf795b5b2f9c4cdda99608ff031cf986af4a51"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftClothSimulation.cs",
+      "destination": "Bleeding-Edge/App/WordCraftClothSimulation.cs",
+      "sha256": "a3bfbcd79d97277515f7f7e4adf4a0675d466cd20382210a093f11d655f96b93"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftCanvasMaterial.cs",
+      "destination": "Bleeding-Edge/App/WordCraftCanvasMaterial.cs",
+      "sha256": "31b70c5ffcff44c41a78c0765957f10bd833b7c235056b29e06eb9ef001496fd"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftCharacterCaret.cs",
+      "destination": "Bleeding-Edge/App/WordCraftCharacterCaret.cs",
+      "sha256": "0fcd89e7da5b6ceaf6204b1287b3258c5029ebfb6968a4c760c72dd8d207cce7"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftPhaseColors.cs",
+      "destination": "Bleeding-Edge/App/WordCraftPhaseColors.cs",
+      "sha256": "825ced36bb1a424614d23f55c1fcf2187e33f07cbffc073a77df3dcf5f5d7baf"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftSettings.cs",
+      "destination": "Bleeding-Edge/App/WordCraftSettings.cs",
+      "sha256": "6d8295cc95752eaaecb4b0074e92cf9964ddedd48b1c3887a77be64539507fa9"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraftAudio.cs",
+      "destination": "Bleeding-Edge/App/WordCraftAudio.cs",
+      "sha256": "5002665e5ef75bba2424c32bbaedebb595654ba4eb35bd6eb38adcfd4de474d0"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordFlowView.cs",
+      "destination": "Bleeding-Edge/App/WordFlowView.cs",
+      "sha256": "37a1faa3990c23921b479f8fb75a7af46d1e9e733dd05d297f56697aed895e77"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/FlowMarkdown.cs",
+      "destination": "Bleeding-Edge/App/FlowMarkdown.cs",
+      "sha256": "9be0501e542d288077ff133a0333e60d48ce304adc20265adfd8f14fa49e5e15"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordViewEffects.cs",
+      "destination": "Bleeding-Edge/App/WordViewEffects.cs",
+      "sha256": "9236b887b6bfae22ad6a6c8d6b2cbe78a511f9817af1249059f4217fcaba6bd3"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/ViewTuning.cs",
+      "destination": "Bleeding-Edge/App/ViewTuning.cs",
+      "sha256": "6cb9444509b2f7e2de060ebfcca68636c943449050db877b8d751f3d79260404"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/SmokeLoadingWorkshop.cs",
+      "destination": "Bleeding-Edge/App/SmokeLoadingWorkshop.cs",
+      "sha256": "aa324517fb00d740186b1bd0797bac429b2d0dcea0654e11360fce4091de0155"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/GpuPresenter.cs",
+      "destination": "Bleeding-Edge/App/GpuPresenter.cs",
+      "sha256": "fe6d8c3fc48e1ea8849642c1a0d1ba1a16b500ee9e6752b0505dbf274a1b195f"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/GpuSumiInk.cs",
+      "destination": "Bleeding-Edge/App/GpuSumiInk.cs",
+      "sha256": "76f9332f5600aa183506b30317fee2f90fea876dec76043b61eafd8bc7818d13"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/GpuWater.cs",
+      "destination": "Bleeding-Edge/App/GpuWater.cs",
+      "sha256": "e839a0080bf043dfe4fac5f5ebd0adb180e5e6f2b834cc5f4746190de639622a"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/GpuFlow.cs",
+      "destination": "Bleeding-Edge/App/GpuFlow.cs",
+      "sha256": "b83e5584a3ea5a5e26418ac1962f1e7ecea5d72b7ff65c838ebc83cae4071a46"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/SumiInkGpu.cpp",
+      "destination": "Bleeding-Edge/App/SumiInkGpu.cpp",
+      "sha256": "46d77925a3550ac2b492ee4c23bfede4f985d80cfbf552b0b70d195030acad19"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/SumiInk.hlsl",
+      "destination": "Bleeding-Edge/App/SumiInk.hlsl",
+      "sha256": "9ed063a847f32e598ac5443b10cf1f5ec1766f8c291d9a516b21f1e6abd04826"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WaterCaustics.hlsl",
+      "destination": "Bleeding-Edge/App/WaterCaustics.hlsl",
+      "sha256": "7c7032246ac207046e355aafb1d7ca1575e95e9543db5f7ce283eeae3924d082"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/Present.hlsl",
+      "destination": "Bleeding-Edge/App/Present.hlsl",
+      "sha256": "71ef029333b8672aa8a33254f79a3efbe64827002fad91e4875e96693ae5684e"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/Particles.hlsl",
+      "destination": "Bleeding-Edge/App/Particles.hlsl",
+      "sha256": "0cb0bd7e7a34e501c4e23e60fca277eddbc916ff24fc5353969e8e1b764e0d61"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/App/WordCraft.ico",
+      "destination": "Bleeding-Edge/App/WordCraft.ico",
+      "sha256": "2cf21b3727aa7917dcdc490873871c067a0451491ab1abfe62a2a5619c3b5988"
+    },
+    {
+      "source": "PageCraft/Bleeding-Edge/App/KineticReader.cs",
+      "destination": "Bleeding-Edge/App/KineticReader.cs",
+      "sha256": "3cc134c2387eb0d487edef6228df76f221593a9e4c1e0e765f806ae1857b9310"
+    },
+    {
+      "source": "PageCraft/Bleeding-Edge/App/FlowTuningPanel.cs",
+      "destination": "Bleeding-Edge/App/FlowTuningPanel.cs",
+      "sha256": "2ee6bddab9ec2928d217db38b9057f587b6ecf61c244b268bc15ff5c7d0c0e2c"
+    },
+    {
+      "source": "PageCraft/Bleeding-Edge/App/ReaderRaster.cs",
+      "destination": "Bleeding-Edge/App/ReaderRaster.cs",
+      "sha256": "6978a600942145099021b90b4aac30e7809f8f2e6ace3764301c96c0bca5127c"
+    },
+    {
+      "source": "PageCraft/Bleeding-Edge/App/RuledReader.cs",
+      "destination": "Bleeding-Edge/App/RuledReader.cs",
+      "sha256": "0c00b5f32e5510cf326e4892fd8fe5b80ca90d941aed9f2c34c320b4e526e045"
+    },
+    {
+      "source": "PageCraft/Bleeding-Edge/App/ReaderNarration.cs",
+      "destination": "Bleeding-Edge/App/ReaderNarration.cs",
+      "sha256": "88ea4ee19227a013395a489f6f9ddcff9ce75b4068af1a556d6604bb2e457bf7"
+    },
+    {
+      "source": "PageCraft/Bleeding-Edge/App/NarrationEffects.cs",
+      "destination": "Bleeding-Edge/App/NarrationEffects.cs",
+      "sha256": "1a116f2318101dbf571a62724524566c8aef79d7e6b5d47b9fedee343c9af6c7"
+    },
+    {
+      "source": "ChatCraft/Bleeding-Edge/App/JapaneseRomaji.cs",
+      "destination": "Bleeding-Edge/App/JapaneseRomaji.cs",
+      "sha256": "fb5b26813a2cb78f51bb22f1cde0367e32a3dd50d05376b8d1e935f33601c838"
+    },
+    {
+      "source": "ChatCraft/Bleeding-Edge/App/FlowSmokeOverlay.cs",
+      "destination": "Bleeding-Edge/App/FlowSmokeOverlay.cs",
+      "sha256": "3318874af20884851a9b2c9f74f7da5a331f7916d726a64fd6ea097708f60b80"
+    },
+    {
+      "source": "ChatCraft/Bleeding-Edge/App/ChatTypography.cs",
+      "destination": "Bleeding-Edge/App/ChatTypography.cs",
+      "sha256": "d0c618dde05506097f31a62187595b262281f733705ed062454a429c8c186734"
+    },
+    {
+      "source": "ChatCraft/Bleeding-Edge/App/ChatColorPanel.cs",
+      "destination": "Bleeding-Edge/App/ChatColorPanel.cs",
+      "sha256": "5c08bf430b9ef407ebe6ac4c48ada20709daf534cbb367f4dac94ec3040409cb"
+    },
+    {
+      "source": "ChatCraft/Bleeding-Edge/App/CloudSmokeView.cs",
+      "destination": "Bleeding-Edge/App/CloudSmokeView.cs",
+      "sha256": "3a9d77cbaf766afb4b92256a9058a1a7d0c8e6582bd34e636acc980f32a45d95"
+    },
+    {
+      "source": "ChatCraft/Bleeding-Edge/App/DialUpMorse.cs",
+      "destination": "Bleeding-Edge/App/DialUpMorse.cs",
+      "sha256": "0ff7fa362287f684d7c73e61894c3982605be872a72ca5385d0dab6b596cee5f"
+    },
+    {
+      "source": "ChatCraft/Bleeding-Edge/App/DialUpMorse.pcm",
+      "destination": "Bleeding-Edge/App/DialUpMorse.pcm",
+      "sha256": "5eb6291d3551fb249ff76259cec0d04956fd63472a601a189ec129f0348778a6"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/Audio-Settings.json",
+      "destination": "Defaults/Audio-Settings.json",
+      "sha256": "4415da9a1827ad28c0141d14d1a285e34d33d387a3bf2c448e5eecbfcd87d4ef"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/Color-Tuning.json",
+      "destination": "Defaults/Color-Tuning.json",
+      "sha256": "9c9c976a5ef6daff3047ca991ebb12b8237286ce2d6d1b70e9657ff3afe250cd"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/Editing-Settings.json",
+      "destination": "Defaults/Editing-Settings.json",
+      "sha256": "b46fcdc581936f1d3b5ad85ad5ca0a1158bf1ac486d251da8a7be9e5f27eb95e"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/Motion-Settings.json",
+      "destination": "Defaults/Motion-Settings.json",
+      "sha256": "37ae7470f4f6084d66da8c346efe4475a72151dc3345e5afcbf17c2ce539cb29"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/Word-Flow-Defaults.json",
+      "destination": "Defaults/Word-Flow-Defaults.json",
+      "sha256": "880ffdaaa306c68a672a943160b3760cb14d27d21a5e76c3012214bed6962740"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/WordCraft-Smoke-Tuning.txt",
+      "destination": "Defaults/WordCraft-Smoke-Tuning.txt",
+      "sha256": "29e82f3dd33bd3194cf5d5d598fc9eef73f0f544f86bf486c193359ba1eecc54"
+    },
+    {
+      "source": "WordCraft/Bleeding-Edge/WordCraft-Smoke-Quality.txt",
+      "destination": "Defaults/WordCraft-Smoke-Quality.txt",
+      "sha256": "c4ebc6d4a5832cd9415f906ad03661110c705a72381c8b8b145761d02e2dd23a"
+    }
+  ]
+}
